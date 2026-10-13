@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZELO STUDIO | Montaggio Video & Mappe UEFN Fortnite</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=IL_TUO_CLIENT_ID&currency=EUR"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0a0b10',
+                        cardBg: '#12141d',
+                        panelBg: '#1a1d29',
+                        neonCyan: '#00f2fe',
+                        neonBlue: '#00c3ff',
+                        neonPurple: '#8a2be2',
+                        accentGreen: '#00ff9d'
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'gradient-text': 'gradientShift 8s ease infinite'
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.3, filter: 'drop-shadow(0 0 15px rgba(0,242,254,0.4))' },
+                            '50%': { opacity: 0.8, filter: 'drop-shadow(0 0 30px rgba(0,242,254,0.8))' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' }
+                        },
+                        gradientShift: {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0b10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a1d29;
+            border-radius: 4px;
+            border: 1px solid #00f2fe33;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2fe;
+        }
+
+        /* Glassmorphism background effect */
+        .glass-panel {
+            background: rgba(18, 20, 29, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+        }
+
+        .neon-border {
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .neon-border:hover {
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.35);
+            border-color: rgba(0, 242, 254, 0.7);
+            transform: translateY(-4px);
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 16px rgba(0, 242, 254, 0.7);
+        }
+
+        /* Reveal Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger Delays for Cards */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-200 font-body overflow-x-hidden antialiased selection:bg-neonCyan selection:text-darkBg">
+
+    <!-- Sidebar Navigation -->
+    <aside class="fixed top-16 left-0 w-16 md:w-20 h-[calc(100vh-4rem)] z-40 bg-darkBg border-r border-white/10 flex flex-col items-center py-6 gap-6">
+        
+
+        <div class="flex flex-col space-y-6 text-gray-400">
+            <a href="#servizi" class="hover:text-neonCyan transition-colors p-2 text-lg" title="Servizi"><i class="fa-solid fa-layer-group"></i></a>
+            <a href="#portfolio" class="hover:text-neonCyan transition-colors p-2 text-lg" title="Portfolio"><i class="fa-solid fa-clapperboard"></i></a>
+            <a href="#processo" class="hover:text-neonCyan transition-colors p-2 text-lg" title="Come Lavoro"><i class="fa-solid fa-list-check"></i></a>
+            <a href="#stats" class="hover:text-neonCyan transition-colors p-2 text-lg" title="Statistiche"><i class="fa-solid fa-chart-line"></i></a>
+            <a href="#faq" class="hover:text-neonCyan transition-colors p-2 text-lg" title="FAQ"><i class="fa-solid fa-circle-question"></i></a>
+            <a href="#visita-sito" class="hover:text-neonCyan transition-colors p-2 text-lg" title="Visita Sito"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+
+        <div class="flex flex-col space-y-4 text-gray-400 text-base">
+            <!-- MODIFICA QUI I TUOI LINK SOCIAL -->
+            <a href="https://www.youtube.com/@zeloGOTY" target="_blank" class="hover:text-neonCyan transition-colors hover:scale-110"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://x.com/ZeloGOTY" target="_blank" class="hover:text-neonCyan transition-colors hover:scale-110"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/zelogoty/" target="_blank" class="hover:text-neonCyan transition-colors hover:scale-110"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://discord.gg/xq4EGJZY49" target="_blank" class="hover:text-neonCyan transition-colors hover:scale-110"><i class="fa-brands fa-discord"></i></a>
+        </div>
+    </aside>
+
+    <!-- Main Container Layout -->
+    <div class="sm:pl-16 md:pl-20 min-h-screen flex flex-col">
+
+<!-- HEADER FISSO INTEGRATO -->
+<header class="fixed top-0 left-0 w-full z-50 flex h-16 bg-darkBg/90 backdrop-blur-md border-b border-white/10">
+    
+    <!-- ANGOLO IN ALTO A SINISTRA (Allineato perfettamente con la sidebar) -->
+    <div class="w-16 md:w-20 shrink-0 h-full flex items-center justify-center border-r border-white/10 bg-darkBg">
+        <!-- PULSANTE "+" (Collegato tramite href="#hero") -->
+        <a href="#hero" 
+           title="Torna alla Hero"
+           class="relative z-10 w-10 h-10 rounded-xl border border-neonCyan/40 text-neonCyan flex items-center justify-center hover:bg-neonCyan/10 hover:border-neonCyan transition-all shadow-[0_0_15px_rgba(0,242,254,0.15)] cursor-pointer">
+            <i class="fa-solid fa-plus text-base pointer-events-none"></i>
+        </a>
+    </div>
+
+    <!-- BARRA DI NAVIGAZIONE PRINCIPALE -->
+    <div class="flex-grow h-full px-6 flex items-center justify-between bg-gradient-to-r from-darkBg via-darkBg/95 to-darkBg">
+        
+        <!-- LOGO ZELO STUDIO -->
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-neonCyan flex items-center justify-center font-black text-black shadow-[0_0_15px_rgba(0,242,254,0.4)]">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="font-heading font-black text-xl text-white tracking-wider">ZELO STUDIO</span>
+        </div>
+
+        <!-- VOCI DI MENU -->
+        <nav class="hidden md:flex items-center gap-8 text-xs font-bold text-gray-300 uppercase tracking-wider">
+            <a href="#servizi" class="hover:text-neonCyan transition-colors">Servizi</a>
+            <a href="#portfolio" class="hover:text-neonCyan transition-colors">Portfolio</a>
+            <a href="#processo" class="hover:text-neonCyan transition-colors">Processo</a>
+            <a href="#stats" class="hover:text-neonCyan transition-colors">Risultati</a>
+            <a href="#faq" class="hover:text-neonCyan transition-colors">FAQ</a>
+        </nav>
+
+        <!-- PULSANTE DISCORD -->
+        <a href="https://discord.gg/xq4EGJZY49" class="border border-neonCyan text-neonCyan font-bold px-4 py-2 rounded-lg hover:bg-neonCyan hover:text-black transition-all flex items-center gap-2 text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(0,242,254,0.2)]">
+            VISITA IL DISCORD <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+    </div>
+</header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-[90vh] px-4 sm:px-8 lg:px-12 py-12 flex flex-col justify-center overflow-hidden">
+            <!-- Background Glow Elements -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-neonCyan/10 rounded-full blur-[120px] pointer-events-none animate-float"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neonPurple/15 rounded-full blur-[140px] pointer-events-none animate-float" style="animation-delay: -3s;"></div>
+
+            <div class="mb-6 flex items-center reveal">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-panel border border-neonCyan/30 text-xs text-gray-200 shadow-[0_0_15px_rgba(0,242,254,0.2)]">
+                    <span class="w-2 h-2 rounded-full bg-accentGreen animate-ping"></span>
+                    <span class="w-2 h-2 rounded-full bg-accentGreen -ml-4"></span>
+                    <span class="font-mono text-neonCyan font-bold tracking-wider">DISPONIBILE PER PROGETTI</span>
+                    <span class="text-gray-500">•</span>
+                    <span class="text-gray-300 uppercase font-semibold text-[11px]">MONTAGGIO VIDEO · MAPPE UEFN</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-7 space-y-6 reveal delay-1">
+                    <h1 class="font-heading font-black text-4xl sm:text-6xl xl:text-7xl leading-none uppercase tracking-tight text-white">
+                        IL TUO VIDEO.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan via-neonBlue to-white neon-text-glow animate-gradient-text">LA TUA MAPPA.</span><br>
+                        UN ALTRO LIVELLO.
+                    </h1>
+
+                    <p class="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        Monto video che trattengono il pubblico dal primo all'ultimo secondo e realizzo ambientazioni ed esperienze custom su <strong class="text-white">Unreal Editor for Fortnite (UEFN)</strong> studiate per massimizzare la ritenzione dei giocatori.
+                    </p>
+
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <!-- MODIFICA QUI IL LINK ESTERNO NELLA HERO -->
+                        <a href="#visita-sito" class="px-7 py-3.5 rounded-xl bg-neonCyan text-darkBg font-heading font-extrabold text-sm uppercase tracking-wider hover:bg-white hover:shadow-[0_0_30px_rgba(0,242,254,0.9)] transition-all transform hover:-translate-y-1">
+                            COMPRA ORA <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#portfolio" class="px-7 py-3.5 rounded-xl glass-panel text-white font-heading font-bold text-sm uppercase tracking-wider hover:border-neonCyan/60 hover:text-neonCyan transition-all flex items-center space-x-2 transform hover:-translate-y-1">
+                            <span>i miei progetti</span>
+                        </a>
+                    </div>
+
+                    <!-- Tech Badge Bar -->
+                    <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 max-w-lg">
+                        <div>
+                            <span class="block font-heading font-bold text-xl sm:text-2xl text-white">100%</span>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Qualità HD/4K</span>
+                        </div>
+                        <div>
+                            <span class="block font-heading font-bold text-xl sm:text-2xl text-neonCyan">+200k</span>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">Views Totali</span>
+                        </div>
+                        <div>
+                            <span class="block font-heading font-bold text-xl sm:text-2xl text-white">UEFN</span>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider">progetti personalizzati</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 reveal delay-2">
+                    <div class="relative rounded-2xl p-1 bg-gradient-to-b from-neonCyan/40 via-white/10 to-neonPurple/30 shadow-2xl transition-transform hover:scale-[1.02] duration-500">
+                        <div class="bg-cardBg rounded-xl overflow-hidden border border-white/10">
+                            <div class="bg-panelBg px-4 py-3 flex items-center justify-between border-b border-white/10">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                    <span class="ml-2 font-mono text-xs text-gray-400">PREMIERE · DAVINCI · UEFN</span>
+                                </div>
+                                <span class="font-mono text-[10px] bg-neonCyan/20 text-neonCyan px-2 py-0.5 rounded border border-neonCyan/30 uppercase">LIVE PREVIEW</span>
+                            </div>
+
+                            <!-- MODIFICA QUI L'IMMAGINE COPERTINA DELLA HERO -->
+                            <div class="relative aspect-video bg-black flex items-center justify-center overflow-hidden group">
+                                <img src="immagini/mapparaw.png" alt="Editing Workspace" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4 p-3 glass-panel rounded-lg flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 rounded-full bg-neonCyan animate-ping"></div>
+                                        <span class="font-mono text-xs text-white uppercase font-bold">Showreel Highlights</span>
+                                    </div>
+                                    <span class="font-mono text-xs text-neonCyan">01:45</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Ticker Bar -->
+        <div class="w-full bg-panelBg/80 border-y border-white/10 py-3 overflow-hidden whitespace-nowrap my-8">
+            <div class="inline-block animate-marquee uppercase font-heading font-black text-xs sm:text-sm tracking-widest text-gray-400">
+                <span class="mx-6 text-neonCyan"><i class="fa-solid fa-bolt mr-2"></i>MONTAGGIO 3D</span> • 
+                <span class="mx-6 text-white"><i class="fa-solid fa-cube mr-2"></i>MAPPE FORTNITE 1V1</span> • 
+                <span class="mx-6 text-neonCyan"><i class="fa-solid fa-film mr-2"></i>SHORTS & REELS</span> • 
+                <span class="mx-6 text-white"><i class="fa-solid fa-code mr-2"></i>PROGRAMMAZIONE VERSE</span> • 
+                <span class="mx-6 text-neonCyan"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>SOUND DESIGN & VFX</span> • 
+                <span class="mx-6 text-neonCyan"><i class="fa-solid fa-bolt mr-2"></i>MONTAGGIO VIDEO</span> • 
+                <span class="mx-6 text-white"><i class="fa-solid fa-cube mr-2"></i>MAPPE FORTNITE 1V1</span> • 
+                <span class="mx-6 text-neonCyan"><i class="fa-solid fa-film mr-2"></i>SHORTS & REELS</span> • 
+                <span class="mx-6 text-white"><i class="fa-solid fa-code mr-2"></i>PROGRAMMAZIONE VERSE</span> • 
+                <span class="mx-6 text-neonCyan"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>SOUND DESIGN & VFX</span> • 
+            </div>
+        </div>
+
+        <!-- Servizi Section -->
+        <section id="servizi" class="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 reveal">
+                <div>
+                    <span class="font-mono text-neonCyan text-sm font-bold tracking-widest uppercase">// LE MIE COMPETENZE</span>
+                    <h2 class="font-heading font-black text-3xl sm:text-5xl text-white uppercase mt-2">SERVIZI SU MISURA</h2>
+                </div>
+                <p class="text-gray-400 max-w-md text-sm mt-4 md:mt-0">
+                    Dal montaggio video ad alto impatto visivo allo sviluppo completo di esperienze giocabili su Fortnite via UEFN.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-panel rounded-2xl p-8 neon-border relative group flex flex-col justify-between reveal delay-1">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-neonCyan/10 border border-neonCyan/30 flex items-center justify-center text-neonCyan text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-white uppercase mb-3">Montaggio Video YouTube</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Cutting ritmato, sound design immersivo, animazioni tridimensionali, pop-up animati, effetti visivi e narrazione fluida pensata per mantenere altissima la ritenzione del pubblico.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 font-mono border-t border-white/10 pt-4">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonCyan mr-2"></i> Video Long-Form (10-30 min)</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonCyan mr-2"></i> Color Grading e Sound FX</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonCyan mr-2"></i> Meme & Motion Graphics</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel rounded-2xl p-8 neon-border relative group flex flex-col justify-between reveal delay-2">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-neonPurple/10 border border-neonPurple/30 flex items-center justify-center text-neonPurple text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-white uppercase mb-3">Mappe UEFN & Fortnite</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Creazione da zero di mappe custom per Fortnite in UEFN: Boxfight, Zone Wars, 1v1 A Tema, Mini-Games, mappe narrative ed esperienze brandizzate.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 font-mono border-t border-white/10 pt-4">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonPurple mr-2"></i> Modeling & Level Design</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonPurple mr-2"></i> Logic Scripting con Verse</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonPurple mr-2"></i> Ottimizzazione & Polishing</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel rounded-2xl p-8 neon-border relative group flex flex-col justify-between reveal delay-3">
+                    <div>
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/10 border border-neonBlue/30 flex items-center justify-center text-neonBlue text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-xl text-white uppercase mb-3">Shorts, TikTok & Reels</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Editing verticale ad alta energia per dominare i feed dei social. Sottotitoli dinamici animati, ritmi frenetici e ganci iniziali (hooks) irresistibili.
+                        </p>
+                    </div>
+                    <ul class="text-xs text-gray-300 space-y-2 font-mono border-t border-white/10 pt-4">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonBlue mr-2"></i> Formato 9:16 Ingrandito</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonBlue mr-2"></i> Sottotitoli Stile Hormozi/Gaming</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-neonBlue mr-2"></i> Massimizzazione CTR e Virale</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO SECTION -->
+        <section id="portfolio" class="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+            <div class="mb-12 reveal">
+                <span class="font-mono text-neonCyan text-sm font-bold tracking-widest uppercase">// LAVORI RECENTI</span>
+                <h2 class="font-heading font-black text-3xl sm:text-5xl text-white uppercase mt-2">PORTFOLIO</h2>
+            </div>
+
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- MODIFICA QUI IL TUO PROGETTO 1 (FOTO O IMMAGINE) -->
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal">
+                    <div class="relative aspect-video overflow-hidden">
+                        <!-- INSERISCI IL TUO LINK IMMAGINE QUI DENTRO IL VALORE src="..." -->
+                        <img src="immagini/nuvolepavimento.png" alt="Progetto Foto 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono uppercase bg-neonCyan/20 text-neonCyan px-2 py-0.5 rounded border border-neonCyan/30">Mappa UEFN</span>
+                        <h3 class="font-heading font-bold text-lg text-white uppercase mt-2">Cyberpunk Arena UEFN</h3>
+                        <p class="text-gray-400 text-xs mt-1">Design di una mapppa 1v1 a tema one piece con asset personalizzati e 0 input delay</p>
+                    </div>
+                </div>
+
+                <!-- MODIFICA QUI IL TUO PROGETTO 2 (VIDEO YOUTUBE EMBED) -->
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-1">
+                    <div class="relative aspect-video overflow-hidden">
+                        <!-- INSERISCI L'URL EMBED DEL TUO VIDEO YOUTUBE NEL PARAMETRO src="..." -->
+                        <iframe class="w-full h-full" src="immagini/HO SFIDATO GLI STREAMER IN 1V1 MA....mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono uppercase bg-neonPurple/20 text-neonPurple px-2 py-0.5 rounded border border-neonPurple/30">YouTube Video</span>
+                        <h3 class="font-heading font-bold text-lg text-white uppercase mt-2">Montaggio Gaming Fast-Paced</h3>
+                        <p class="text-gray-400 text-xs mt-1">Video YouTube editato con ritmi incalzanti, meme tracking ed effetti sonori immersivi.</p>
+                    </div>
+                </div>
+ 
+                <!-- MODIFICA QUI IL TUO PROGETTO 3 (VIDEO LOCALE O SECONDO VIDEO) -->
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-2">
+                    <div class="relative aspect-video overflow-hidden bg-black">
+                        <!-- PER UN VIDEO LOCALE .mp4 DALLA TUA CARTELLA DECOMMENTA O SOSTITUISCI QUESTO TAG: -->
+                        <!-- <video class="w-full h-full object-cover" controls><source src="NOME_FILE_VIDEO.mp4" type="video/mp4"></video> -->
+                        <iframe class="w-full h-full" src="immagini/video 4.mp4" title="TikTok video player" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono uppercase bg-neonBlue/20 text-neonBlue px-2 py-0.5 rounded border border-neonBlue/30">TikTok / Reel</span>
+                        <h3 class="font-heading font-bold text-lg text-white uppercase mt-2">Short Verticale Virale</h3>
+                        <p class="text-gray-400 text-xs mt-1">Video tiktok in stile tridimensionale personalizzato per una promozione.</p>
+                    </div>
+                </div>
+
+                <!-- MODIFICA QUI IL TUO PROGETTO 4 (FOTO) -->
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal">
+                    <div class="relative aspect-video overflow-hidden">
+                        <!-- INSERISCI L'URL DELL'IMMAGINE IN src="..." -->
+                        <img src="immagini/zonewars1.png" alt="Progetto Foto 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono uppercase bg-neonCyan/20 text-neonCyan px-2 py-0.5 rounded border border-neonCyan/30">UEFN Level Design</span>
+                        <h3 class="font-heading font-bold text-lg text-white uppercase mt-2">Isola Battle Royale Custom</h3>
+                        <p class="text-gray-400 text-xs mt-1">Progettazione e terramorphing di un'intera isola personalizzata per eventi live streamer.</p>
+                    </div>
+                </div>
+
+                <!-- MODIFICA QUI IL TUO PROGETTO 5 (VIDEO YOUTUBE) -->
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-1">
+                    <div class="relative aspect-video overflow-hidden bg-black">
+                        <video class="w-full h-full object-cover" controls preload="metadata">
+                            <source src="immagini/E' SEMPRE PIU' VICINO RTU.mp4" type="video/mp4">
+                            Il tuo browser non supporta il riproduttore video.
+                        </video>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono uppercase bg-neonPurple/20 text-neonPurple px-2 py-0.5 rounded border border-neonPurple/30">Video Storytelling</span>
+                        <h3 class="font-heading font-bold text-lg text-white uppercase mt-2">Documentario Gaming</h3>
+                        <p class="text-gray-400 text-xs mt-1">Editing narrativo avanzato con ricostruzioni cinematografiche e audio lavorato per lo streamer ab1tv.</p>
+                    </div>
+                </div>
+
+                <!-- MODIFICA QUI IL TUO PROGETTO 6 (FOTO) -->
+                <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-2">
+                    <div class="relative aspect-video overflow-hidden">
+                        <!-- INSERISCI L'URL DELL'IMMAGINE IN src="..." -->
+                        <img src="immagini/mapparezon.png" alt="Progetto Foto 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-mono uppercase bg-neonCyan/20 text-neonCyan px-2 py-0.5 rounded border border-neonCyan/30">Essential 1v1 <map name=""></map></span>
+                        <h3 class="font-heading font-bold text-lg text-white uppercase mt-2">Mappa 1v1 stile Rezon</h3>
+                        <p class="text-gray-400 text-xs mt-1">Mappa che rispetta ogni standard di design, con tutte le possibili innovazioni.</p>
+                    </div>
+                </div>
+                <!-- BOTTONE LINK ESTERNO SOTTO AL PORTFOLIO -->
+                <div class="mt-12 text-center reveal">
+                    <!-- MODIFICA QUI IL LINK ESTERNO E IL TESTO DEL PULSANTE -->
+                    <a href="https://zelostudio.netlify.app/#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 rounded-xl glass-panel text-white font-heading font-bold text-sm uppercase tracking-wider border border-neonCyan/40 hover:bg-neonCyan hover:text-darkBg hover:shadow-[0_0_30px_rgba(0,242,254,0.8)] transition-all duration-300 transform hover:-translate-y-1 group">
+                        <span>Vedi Tutti i Progetti</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square ml-3 text-neonCyan group-hover:text-darkBg transition-colors"></i>
+                    </a>
+                </div>
+
+        </section>
+            </div>
+        </section>
+
+        <!-- Section Processo di Lavoro -->
+        <section id="processo" class="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+            <div class="mb-16 reveal">
+                <span class="font-mono text-neonCyan text-sm font-bold tracking-widest uppercase">// COME LAVORO</span>
+                <h2 class="font-heading font-black text-3xl sm:text-5xl text-white uppercase mt-2">LE MIE MAPPE UEFN</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">01</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">Briefing & Idea</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Definiamo insieme l'obiettivo, gli asset da utilizzare, lo stile della mappa e le funzionaolità da implementare.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal delay-1">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">02</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">Bozza & Struttura</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Creiamo una bozza della mappa per capire lo stile e le meccaniche aggiunte e da aggiungere
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal delay-2">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">03</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">correzzione</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Aggiungiamo funzioni avanzate su richiesta o perfezioniamo gli asset e le meccaniche già presenti nella mappa.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal delay-3">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">04</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">Consegna Finale</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Revisione finale, pubblicazione dell'isola UEFN.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section id="processo" class="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+            <div class="mb-16 reveal">
+                <span class="font-mono text-neonCyan text-sm font-bold tracking-widest uppercase">// COME LAVORO</span>
+                <h2 class="font-heading font-black text-3xl sm:text-5xl text-white uppercase mt-2">IL MIO EDITING</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">01</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">Briefing & Idea</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Definiamo insieme l'obiettivo, lo stile di montaggio e la storia da raccontare nel video, così da creare un concept unico e originale.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal delay-1">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">02</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">Bozza & script</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Creo il primo taglio grezzo (rough cut) e creiamo uno script per la storia del video.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal delay-2">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">03</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">SFX & VFX</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Aggiungo sound design, effetti speciali, color grading, testi animati ed eventualmente altre registrazioni vocali per perfezionare la storia da raccontare.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="glass-panel rounded-xl p-6 border border-white/10 relative reveal delay-3">
+                    <span class="font-heading font-black text-4xl text-neonCyan/30 absolute top-4 right-4">04</span>
+                    <h3 class="font-heading font-bold text-lg text-white uppercase mb-2">Consegna Finale</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">
+                        Revisione finale, ottimizzazione del file e consegna del video pronto per la pubblicazione.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats" class="py-16 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+            <div class="glass-panel rounded-2xl p-8 sm:p-12 border border-neonCyan/20 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center reveal">
+                <div>
+                    <span class="font-heading font-black text-4xl sm:text-5xl text-neonCyan block mb-1">+30</span>
+                    <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">Video Montati</span>
+                </div>
+                <div>
+                    <span class="font-heading font-black text-4xl sm:text-5xl text-white block mb-1">+10</span>
+                    <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">Mappe UEFN Create</span>
+                </div>
+                <div>
+                    <span class="font-heading font-black text-4xl sm:text-5xl text-neonCyan block mb-1">99.8%</span>
+                    <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">Clienti Soddisfatti</span>
+                </div>
+                <div>
+                    <span class="font-heading font-black text-4xl sm:text-5xl text-white block mb-1">48h</span>
+                    <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">Tempo Medio Consegna</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 px-4 sm:px-8 lg:px-12 max-w-5xl mx-auto w-full">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-neonCyan text-sm font-bold tracking-widest uppercase">// DOMANDE FREQUENTI</span>
+                <h2 class="font-heading font-black text-3xl sm:text-5xl text-white uppercase mt-2">DOMANDE E RISPOSTE</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="glass-panel rounded-xl p-6 border border-white/10 reveal">
+                    <h3 class="font-heading font-bold text-lg text-white uppercase flex items-center justify-between">
+                        <span>Quanto tempo ci vuole per montare un video?</span>
+                        <i class="fa-solid fa-chevron-down text-neonCyan text-sm"></i>
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                        I tempi variano in base alla complessità. Per uno Short/Reel solitamente bastano 48-72 ore, mentre per un video YouTube complesso (10-20 min) occorrono mediamente dai 5 ai 7 giorni lavorativi.
+                    </p>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 border border-white/10 reveal delay-1">
+                    <h3 class="font-heading font-bold text-lg text-white uppercase flex items-center justify-between">
+                        <span>Puoi programmare meccaniche personalizzate per Fortnite?</span>
+                        <i class="fa-solid fa-chevron-down text-neonCyan text-sm"></i>
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                        Sì, utilizziamo il linguaggio di programmazione Verse nativo di UEFN per creare logiche di gioco custom, UI personalizzate, sistemi di punteggio e meccaniche uniche non disponibili con i normali dispositivi.
+                    </p>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 border border-white/10 reveal delay-2">
+                    <h3 class="font-heading font-bold text-lg text-white uppercase flex items-center justify-between">
+                        <span>Come funziona per l'invio dei file dei video?</span>
+                        <i class="fa-solid fa-chevron-down text-neonCyan text-sm"></i>
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                        Inviando semplicemente la registrazione grezza tramite servizi di file sharing come Google Drive, WeTransfer o Frame.io. Al resto pensiamo noi.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE LINK ESTERNO (SOSTITUISCE E REINVENTA I CONTATTI) -->
+        <!-- SEZIONE LINK ESTERNO CON DUE PULSANTI -->
+<section id="visita-sito" class="py-20 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full text-center">
+    <div class="glass-panel rounded-3xl p-8 sm:p-16 border border-neonCyan/40 relative overflow-hidden reveal">
+        <!-- Background Glow -->
+        <div class="absolute -top-24 -left-24 w-72 h-72 bg-neonCyan/20 rounded-full blur-[90px] pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-neonPurple/20 rounded-full blur-[90px] pointer-events-none"></div>
+
+        <span class="font-mono text-neonCyan text-xs font-bold tracking-widest uppercase mb-4 inline-block">// COLLEGAMENTO DIRETTO</span>
+        <h2 class="font-heading font-black text-3xl sm:text-6xl text-white uppercase mb-6 leading-tight">
+            PRONTO A COLLABORARE?<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonBlue">ACQUISTA I NOSTRI PRODOTTI</span>
+        </h2>
+        <p class="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            Clicca il collegamento per essere re diretto al link per acquistare i prodotti o usufruire dei servizi offerti. Tutti i progetti e le collaborazioni sono gestiti tramite il nostro sito esterno.
+        </p>
+        
+        <!-- Contenitore con i due pulsanti affiancati -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+            
+            <!-- PRIMO BOTTONE -->
+            <!-- MODIFICA QUI IL PRIMO LINK -->
+            <a onclick="apriConfiguratore()"target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 rounded-2xl bg-gradient-to-r from-neonCyan to-neonBlue text-darkBg font-heading font-black text-sm sm:text-base uppercase tracking-wider hover:shadow-[0_0_30px_rgba(0,242,254,0.8)] transition-all transform hover:-translate-y-1">
+                ACQUISTA UNA MAPPA SU UEFN <i class="fa-solid fa-arrow-up-right-from-square ml-3 text-base"></i>
+            </a>
+
+            <!-- SECONDO BOTTONE (NUOVO) -->
+            <!-- MODIFICA QUI IL SECONDO LINK E IL TESTO -->
+            <a href="https://www.secondosito.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 rounded-2xl bg-gradient-to-r from-neonPurple to-neonBlue text-white font-heading font-black text-sm sm:text-base uppercase tracking-wider hover:shadow-[0_0_30px_rgba(138,43,226,0.8)] transition-all transform hover:-translate-y-1">
+                RICHIEDI MONTAGGIO VIDEO <i class="fa-solid fa-arrow-up-right-from-square ml-3 text-base"></i>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+
+
+    </div>
+
+    <!-- Script per attivare le animazioni durante lo Scroll -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+    <!-- ======================================================== -->
+<!-- SEZIONE CONFIGURATORE MAPPA UEFN CON JAVASCRIPT INTEGRATO -->
+<!-- ======================================================== -->
+<section id="configuratore-mappa" class="hidden py-16 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full transition-all duration-500">
+    <!-- CONTENITORE UNICO (UNICO QUADRATO SULLO SFONDO) -->
+<div class="glass-panel rounded-3xl p-6 sm:p-10 border border-neonCyan/40 relative mb-12">
+
+<!-- PASSO 03: Scegli il Piano Base -->
+<div class="mb-12">
+    <h3 class="font-heading font-bold text-lg text-neonCyan uppercase mb-4 flex items-center">
+        <span class="w-7 h-7 rounded-lg bg-neonCyan/20 flex items-center justify-center text-xs mr-2">03</span> Scegli il tuo Piano Base
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Mappa Light -->
+        <div onclick="selezionaPiano(this, 'Mappa Light', 15)" class="card-piano glass-panel p-6 pt-8 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex flex-col justify-between relative">
+            <div>
+                <h4 class="font-heading font-bold text-white pr-12">Mappa Light</h4>
+                <div class="text-2xl font-black text-neonCyan my-2">15€</div>
+                <p class="text-xs text-gray-400">L'essenziale per duelli veloci al prezzo più basso.</p>
+            </div>
+        </div>
+
+        <!-- Mappa Basic -->
+        <div onclick="selezionaPiano(this, 'Mappa Basic', 30)" class="card-piano glass-panel p-6 pt-8 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex flex-col justify-between relative">
+            <div>
+                <h4 class="font-heading font-bold text-white pr-12">Mappa Basic</h4>
+                <div class="text-2xl font-black text-neonCyan my-2">30€</div>
+                <p class="text-xs text-gray-400">Il giusto equilibrio tra stile e performance.</p>
+            </div>
+        </div>
+
+        <!-- Mappa Perfect (Spazio Aumentato) -->
+        <div onclick="selezionaPiano(this, 'Mappa Perfect', 50)" class="card-piano glass-panel p-6 pt-8 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex flex-col justify-between relative">
+            <span class="absolute top-2.5 right-2.5 bg-red-600 text-white font-bold text-[9px] uppercase px-2 py-0.5 rounded-full shadow-lg border border-red-400 whitespace-nowrap">
+                Più popolare!
+            </span>
+            <div>
+                <h4 class="font-heading font-bold text-white pr-16">Mappa Perfect</h4>
+                <div class="text-2xl font-black text-neonCyan my-2">50€</div>
+                <p class="text-xs text-gray-400">Effetti visivi curati ed elementi personalizzati.</p>
+            </div>
+        </div>
+
+        <!-- Mappa Ultimate (Spazio Aumentato) -->
+        <div onclick="selezionaPiano(this, 'Mappa Ultimate', 60)" class="card-piano glass-panel p-6 pt-8 rounded-2xl border-2 border-neonCyan cursor-pointer transition-all bg-neonCyan/10 flex flex-col justify-between relative">
+            <span class="absolute top-2.5 right-2.5 bg-red-600 text-white font-bold text-[9px] uppercase px-2 py-0.5 rounded-full shadow-lg border border-red-400 whitespace-nowrap">
+                Più conveniente!
+            </span>
+            <div>
+                <h4 class="font-heading font-bold text-white pr-20">Mappa Ultimate</h4>
+                <div class="text-2xl font-black text-neonCyan my-2">60€</div>
+                <p class="text-xs text-gray-400">Il massimo: mappa custom costruita da zero su misura.</p>
+            </div>
+        </div>
+
+    </div>
+</div>    
+    
+    <!-- PASSO 01: Scegli lo Stile della Mappa -->
+    <div class="mb-12">
+        <h3 class="font-heading font-bold text-lg text-neonCyan uppercase mb-4 flex items-center">
+            <span class="w-7 h-7 rounded-lg bg-neonCyan/20 flex items-center justify-center text-xs mr-2">01</span> scegli i colori principali della mappa
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div onclick="selezionaStile(this, 'REDMAP')" class="card-stile glass-panel p-4 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+                <img src="immagini/mapparossa.png" class="rounded-xl w-full h-36 object-cover mb-3" alt="Scorched Outpost">
+                <h4 class="font-heading font-bold text-white text-base">REDMAP</h4>
+                <p class="text-xs text-gray-400 mt-1">Mappa colorata principalmente in rosso.</p>
+            </div>
+            <div onclick="selezionaStile(this, 'BLUEMAP')" class="card-stile glass-panel p-4 rounded-2xl border-2 border-neonCyan cursor-pointer transition-all bg-neonCyan/10">
+                <img src="immagini/mappablu.png" class="rounded-xl w-full h-36 object-cover mb-3" alt="Neon Skyline">
+                <h4 class="font-heading font-bold text-white text-base">BLUEMAP</h4>
+                <p class="text-xs text-gray-400 mt-1">Mappa colorata principalmente in blu.</p>
+            </div>
+            <div onclick="selezionaStile(this, 'YELLOWMAP')" class="card-stile glass-panel p-4 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+                <img src="immagini/mappagialla.png" class="rounded-xl w-full h-36 object-cover mb-3" alt="Neon Rooftop">
+                <h4 class="font-heading font-bold text-white text-base">YELLOWMAP</h4>
+                <p class="text-xs text-gray-400 mt-1">Mappa colorata principalmente in giallo.</p>
+            </div>
+        </div>
+    </div>
+
+<!-- SEZIONE 02: Scegli il Tema Ambientale (8 Opzioni, immagini ridotte) -->
+<div class="mb-12">
+    <h3 class="font-heading font-bold text-lg text-neonCyan uppercase mb-4 flex items-center">
+        <span class="w-7 h-7 rounded-lg bg-neonCyan/20 flex items-center justify-center text-xs mr-2">02</span> Scegli il Tema Ambientale
+    </h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        
+        <div onclick="selezionaAmbiente(this, 'Cyber City')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacieloazzurro.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Cyber City">
+            <h4 class="font-bold text-white text-sm">Cyber City</h4>
+            <p class="text-[11px] text-gray-400">Grattacieli e ologrammi.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Tempio Antico')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacieloazzurrouno.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Tempio Antico">
+            <h4 class="font-bold text-white text-sm">Tempio Antico</h4>
+            <p class="text-[11px] text-gray-400">Rovine e dune di sabbia.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Stazione Spaziale')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacieloblu.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Stazione Spaziale">
+            <h4 class="font-bold text-white text-sm">Stazione Spaziale</h4>
+            <p class="text-[11px] text-gray-400">Alta tecnologia in orbita.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Isola Tropicale')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacielonero.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Isola Tropicale">
+            <h4 class="font-bold text-white text-sm">Isola Tropicale</h4>
+            <p class="text-[11px] text-gray-400">Spiagge ed acque cristalline.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Foresta Incantata')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacielorosso.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Foresta Incantata">
+            <h4 class="font-bold text-white text-sm">Foresta Incantata</h4>
+            <p class="text-[11px] text-gray-400">Vegetazione e luci mistiche.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Base Invernale')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacieloviola.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Base Invernale">
+            <h4 class="font-bold text-white text-sm">Base Invernale</h4>
+            <p class="text-[11px] text-gray-400">Ghiaccio e nevi perenni.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Lava Volcanica')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacielogiallorosso.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Lava Volcanica">
+            <h4 class="font-bold text-white text-sm">Lava & Vulcano</h4>
+            <p class="text-[11px] text-gray-400">Ambiente ostile e infuocato.</p>
+        </div>
+
+        <div onclick="selezionaAmbiente(this, 'Post-Apocalittico')" class="card-ambiente glass-panel p-3 rounded-xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all">
+            <img src="immagini/mappacielorosa.png" class="w-full h-24 object-cover rounded-lg mb-2" alt="Post-Apocalittico">
+            <h4 class="font-bold text-white text-sm">Post-Apocalittico</h4>
+            <p class="text-[11px] text-gray-400">Città abbandonata e ruggine.</p>
+        </div>
+
+    </div>
+<!-- Contatore e Messaggio d'Errore Ambientale -->
+<div class="mt-4 flex flex-col gap-1">
+    <div id="contatore-ambienti" class="text-sm font-semibold text-gray-300">
+        Temi selezionati: <span id="num-ambienti-count" class="text-neonCyan">0</span>/<span id="max-ambienti-count">2</span>
+    </div>
+    <div id="messaggio-errore-ambiente" class="hidden text-sm font-bold text-red-500 transition-all duration-300">
+        <!-- Il testo dell'errore apparirà qui -->
+    </div>
+</div>
+</div>
+
+
+
+<!-- PASSO 04: Potenzia con gli Extra -->
+<div>
+    <h3 class="font-heading font-bold text-lg text-neonCyan uppercase mb-4 flex items-center">
+        <span class="w-7 h-7 rounded-lg bg-neonCyan/20 flex items-center justify-center text-xs mr-2">04</span> Potenzia con gli Extra
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Aggiornamenti Gratuiti -->
+        <div id="extra-aggiornamenti" onclick="toggleExtra(this, 'Aggiornamenti Gratuiti', 20)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Aggiornamenti gratuiti per sempre</h4>
+                <p class="text-xs text-gray-400 mt-1">Tutte le future patch della tua mappa incluse.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+20€</span>
+        </div>
+
+        <!-- Asset Personalizzati -->
+        <div id="extra-asset" onclick="toggleExtra(this, 'Asset Personalizzati', 15)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Asset Personalizzati</h4>
+                <p class="text-xs text-gray-400 mt-1">Loghi, modelli e decorazioni scelte da te.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+15€</span>
+        </div>
+
+        <!-- Ottimizzazione FPS -->
+        <div id="extra-ottimizzazione" onclick="toggleExtra(this, 'Ottimizzazione FPS', 15)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Ottimizzazione FPS Avanzata</h4>
+                <p class="text-xs text-gray-400 mt-1">Massima fluidità di gioco per tutte le console e PC.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+15€</span>
+        </div>
+
+        <!-- Ruota della Fortuna -->
+        <div id="extra-ruota" onclick="toggleExtra(this, 'Ruota della fortuna', 13)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Ruota della fortuna</h4>
+                <p class="text-xs text-gray-400 mt-1">Gioco interattivo con rotazione e premi casuali che tratterrà i giocatori nella mappa.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+13€</span>
+        </div>
+
+        <!-- Playtime -->
+        <div id="extra-playtime" onclick="toggleExtra(this, 'Playtime', 10)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Playtime</h4>
+                <p class="text-xs text-gray-400 mt-1">Asset che dice al giocatore il suo tempo di gioco, utile per creare contest personalizzati.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+10€</span>
+        </div>
+
+        <!-- Bot 1v1 -->
+        <div id="extra-bot" onclick="toggleExtra(this, 'bot 1v1', 15)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">bot 1v1</h4>
+                <p class="text-xs text-gray-400 mt-1">Bot di gioco che permette al giocatore di rimanere in mappa nonostante sia da solo.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+15€</span>
+        </div>
+
+        <!-- NUOVO: Consegna entro 2 settimane -->
+        <div id="extra-consegna" onclick="toggleExtra(this, 'Consegna Express', 10)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Consegna entro 2 settimane</h4>
+                <p class="text-xs text-gray-400 mt-1">Sviluppo rapido prioritario per ricevere la tua mappa in tempi record.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+10€</span>
+        </div>
+
+        <!-- NUOVO: Video cinematico per i social -->
+        <div id="extra-social" onclick="toggleExtra(this, 'Video cinematico', 5)" class="card-extra glass-panel p-5 rounded-2xl border border-white/10 hover:border-neonCyan cursor-pointer transition-all flex justify-between items-center">
+            <div>
+                <h4 class="font-heading font-bold text-white">Video cinematico per i social</h4>
+                <p class="text-xs text-gray-400 mt-1">Breve clip promozionale ad alto impatto per TikTok, Reels e Shorts.</p>
+            </div>
+            <span class="badge-prezzo text-neonCyan font-bold text-lg ml-4">+5€</span>
+        </div>
+
+    </div>
+</div>
+<!-- SEZIONE TITOLO MAPPA (Max 50 caratteri) -->
+<div class="mb-12">
+    <h3 class="font-heading font-bold text-lg text-neonCyan uppercase mb-4 flex items-center">
+        Titolo della Mappa
+    </h3>
+    <div class="glass-panel p-4 rounded-xl border border-white/10">
+        <input type="text" id="titolo-mappa" maxlength="50" placeholder="Es. SpeedArena 1v1" class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-neonCyan transition-all">
+        <div class="text-right text-xs text-gray-400 mt-1"><span id="char-count">0</span>/50 caratteri</div>
+    </div>
+</div>
+
+
+<!-- SEZIONE RICHIESTE E NOTE DEL CLIENTE -->
+<div class="mb-12">
+    <h3 class="font-heading font-bold text-lg text-neonCyan uppercase mb-4 flex items-center">
+        Note e Dettagli Personalizzati
+    </h3>
+    <div class="glass-panel p-4 rounded-xl border border-white/10">
+        <textarea id="note-cliente" rows="3" placeholder="Scrivi qui eventuali dettagli specifici, idee o meccaniche che vuoi inserire nella tua mappa..." class="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-neonCyan transition-all"></textarea>
+    </div>
+</div>
+</div> <!-- FINE UNICO QUADRATO POSTERIORE -->
+
+        <!-- PASSO 04: Riepilogo e Pagamento -->
+        <div class="bg-panelBg/80 p-6 sm:p-8 rounded-2xl border border-white/10">
+            <h3 class="font-heading font-bold text-xl text-white uppercase mb-6 text-center">RIEPILOGO E PAGAMENTO</h3>
+            
+            <div class="space-y-3 text-sm max-w-lg mx-auto border-b border-white/10 pb-6 mb-6">
+                <div class="flex justify-between"><span class="text-gray-400">Piano base:</span> <span id="summary-piano" class="text-white font-bold">Mappa Ultimate (60€)</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Stile mappa:</span> <span id="summary-stile" class="text-white font-bold">Neon Skyline</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Extra selezionati:</span> <span id="summary-extra" class="text-neonCyan font-bold">Nessuno</span></div>
+            </div>
+
+            <div class="text-center">
+                <span class="text-xs text-gray-400 uppercase tracking-widest block">TOTALE DA PAGARE</span>
+                <span id="totale-prezzo" class="font-heading font-black text-5xl text-white my-2 block">60€</span>
+<!-- BOX CODICE SCONTO E PAGAMENTO -->
+                <div class="glass-panel p-6 rounded-2xl border border-neonCyan/30 mt-8">
+                    <div class="mb-6">
+                        <label class="block text-xs uppercase font-bold text-gray-300 mb-2">Hai un Codice Sconto?</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="input-sconto" placeholder="Inserisci codice" class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white uppercase placeholder-gray-500 focus:outline-none focus:border-neonCyan transition-all flex-grow">
+                            <button type="button" onclick="applicaSconto(event)" class="bg-neonCyan text-black font-bold px-5 py-2 rounded-lg hover:bg-cyan-300 transition-all">Applica</button>
+                        </div>
+                        <p id="msg-sconto" class="text-xs mt-2 hidden"></p>
+                    </div>
+
+                    <!-- Totale Box Sconto -->
+                    <div class="flex justify-between items-center text-xl font-bold text-white mb-6">
+                        <span>Totale:</span>
+                        <div class="flex items-center gap-2">
+                            <span id="prezzo-scontato-wrapper" class="hidden text-sm line-through text-gray-400">
+                                <span id="prezzo-originale">0€</span>
+                            </span>
+                            <span id="totale-prezzo-box" class="text-neonCyan text-3xl font-black">60€</span>
+                        </div>
+                    </div>
+
+                    <!-- BOTTONE PAYPAL DINAMICO -->
+                    <a id="btn-paypal" href="https://paypal.me/ZeloPlays/60EUR" target="_blank" class="w-full inline-flex items-center justify-center px-10 py-4 mt-4 rounded-xl bg-gradient-to-r from-neonCyan via-neonBlue to-white text-darkBg font-heading font-black text-base uppercase tracking-wider hover:shadow-[0_0_30px_rgba(0,242,254,0.9)] transition-all transform hover:-translate-y-1">
+                        PAGA CON PAYPAL <i class="fa-brands fa-paypal ml-3 text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-white/10 bg-cardBg py-8 px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
+            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                <div class="w-6 h-6 rounded bg-neonCyan flex items-center justify-center text-darkBg font-black text-xs">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="font-heading font-bold text-gray-300 tracking-wider">STORMFRAME</span>
+                <span>© 2026 Tutti i diritti riservati.</span>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <!-- MODIFICA QUI IL LINK ESTERNO NEL FOOTER -->
+                <a href="https://fortnite-loadout-hub.preview.emergentagent.com" target="_blank" class="hover:text-neonCyan transition-colors">Sito Esterno</a>
+                <a href="#hero" class="hover:text-neonCyan transition-colors">Torna in alto <i class="fa-solid fa-arrow-up ml-1"></i></a>
+            </div>
+        </footer>
+
+<script>
+    // 1. Mappa degli extra inclusi per ciascun piano
+    const extraInclusiPerPiano = {
+        'Mappa Light': [],
+        'Mappa Basic': ['Ottimizzazione FPS', 'Playtime'],
+        'Mappa Perfect': ['Ottimizzazione FPS', 'Playtime', 'bot 1v1', 'Ruota della fortuna'],
+        'Mappa Ultimate': ['Ottimizzazione FPS', 'Asset Personalizzati', 'Playtime', 'bot 1v1', 'Supporto Prioritario', 'Ruota della fortuna']
+    };
+
+    // 2. Limiti Temi Ambientali per ciascun piano
+    const limitiTemiPerPiano = {
+        'Mappa Light': 2,
+        'Mappa Basic': 3,
+        'Mappa Perfect': 4,
+        'Mappa Ultimate': 6
+    };
+
+    // 3. Mappatura Nome Extra -> ID HTML del div
+    const mappaExtra = {
+        'Asset Personalizzati': 'extra-asset',
+        'Ottimizzazione FPS': 'extra-ottimizzazione',
+        'Playtime': 'extra-playtime',
+        'Ruota della fortuna': 'extra-ruota',
+        'bot 1v1': 'extra-bot',
+        'Aggiornamenti Gratuiti': 'extra-aggiornamenti',
+        'Consegna Express': 'extra-consegna',
+        'Video cinematico': 'extra-social'
+    };
+
+    // 4. Prezzi di base degli extra
+    const prezziExtraOriginali = {
+        'extra-asset': '+15€',
+        'extra-ottimizzazione': '+15€',
+        'extra-playtime': '+10€',
+        'extra-ruota': '+13€',
+        'extra-bot': '+15€',
+        'extra-aggiornamenti': '+20€',
+        'extra-consegna': '+10€',
+        'extra-social': '+5€'
+    };
+
+    // 5. Configurazione Codici Sconto
+    const codiciScontoValidi = ['WSPEED', 'GABRIELE', 'ZELITA'];
+    const percentualeSconto = 20; // 20% di sconto
+
+    // Variabili di Stato
+    let prezzoBase = 60;
+    let nomePiano = 'Mappa Ultimate';
+    let nomeStile = 'Neon Skyline';
+    let ambientiSelezionati = []; // Parte da 0 temi selezionati
+    let extraAttivi = {};
+    let scontoApplicato = false;
+
+    // Funzione di supporto per ottenere il limite massimo del piano corrente
+    function getLimiteMassimoTemi() {
+        return limitiTemiPerPiano[nomePiano] || 2;
+    }
+
+    // Funzione Apertura Configuratore
+    function apriConfiguratore() {
+        const sec = document.getElementById('configuratore-mappa');
+        if (sec) {
+            sec.classList.remove('hidden');
+            sec.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // Seleziona Stile
+    function selezionaStile(el, stile) {
+        document.querySelectorAll('.card-stile').forEach(c => {
+            c.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            c.classList.add('border-white/10');
+        });
+        el.classList.remove('border-white/10');
+        el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+        nomeStile = stile;
+        aggiornaRiepilogo();
+    }
+
+    // Seleziona/Deseleziona Ambiente (da 0 al max consentito dal piano)
+    function selezionaAmbiente(el, ambiente) {
+        const msgErrore = document.getElementById('messaggio-errore-ambiente');
+        const limiteMax = getLimiteMassimoTemi();
+
+        // Nasconde l'errore ad ogni nuovo click
+        if (msgErrore) {
+            msgErrore.classList.add('hidden');
+            msgErrore.innerText = '';
+        }
+
+        const index = ambientiSelezionati.indexOf(ambiente);
+
+        if (index > -1) {
+            // Deselezione: permette di arrivare fino a 0 elementi selezionati
+            ambientiSelezionati.splice(index, 1);
+            el.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            el.classList.add('border-white/10');
+        } else {
+            // Selezione: controlla il limite massimo del piano
+            if (ambientiSelezionati.length < limiteMax) {
+                ambientiSelezionati.push(ambiente);
+                el.classList.remove('border-white/10');
+                el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            } else {
+                // Mostra il messaggio visivo sul sito invece dell'alert del browser
+                if (msgErrore) {
+                    msgErrore.innerText = `Puoi selezionare al massimo ${limiteMax} temi ambientali con il piano ${nomePiano}!`;
+                    msgErrore.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Aggiorna contatore e riepilogo
+        aggiornaContatoreAmbienti();
+        aggiornaRiepilogo();
+    }
+
+    // Aggiorna il testo del contatore (es. 0/2, 1/3) e diventa rosso al massimo
+    function aggiornaContatoreAmbienti() {
+        const elCount = document.getElementById('num-ambienti-count');
+        const elMax = document.getElementById('max-ambienti-count');
+        const quanti = ambientiSelezionati.length;
+        const limiteMax = getLimiteMassimoTemi();
+
+        if (elMax) {
+            elMax.innerText = limiteMax;
+        }
+
+        if (elCount) {
+            elCount.innerText = quanti;
+            
+            // Quando raggiunge il limite massimo del piano attuale, diventa rosso
+            if (quanti >= limiteMax) {
+                elCount.className = 'text-red-500 font-bold';
+            } else {
+                elCount.className = 'text-neonCyan';
+            }
+        }
+    }
+
+    // Gestione del cambio di piano (adegua selezioni ed errori)
+    function alCambioPiano() {
+        const limiteMax = getLimiteMassimoTemi();
+
+        // Se sono stati selezionati più temi rispetto al limite del nuovo piano, taglia l'eccedenza
+        if (ambientiSelezionati.length > limiteMax) {
+            const rimossi = ambientiSelezionati.slice(limiteMax);
+            ambientiSelezionati = ambientiSelezionati.slice(0, limiteMax);
+
+            // Rimuove lo stile evidenziato dalle schede deselezionate
+            document.querySelectorAll('.card-ambiente').forEach(card => {
+                const attrAmbiente = card.getAttribute('onclick');
+                if (attrAmbiente && rimossi.some(r => attrAmbiente.includes(r))) {
+                    card.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+                    card.classList.add('border-white/10');
+                }
+            });
+        }
+
+        // Pulisce messaggi di errore
+        const msgErrore = document.getElementById('messaggio-errore-ambiente');
+        if (msgErrore) {
+            msgErrore.classList.add('hidden');
+            msgErrore.innerText = '';
+        }
+
+        aggiornaContatoreAmbienti();
+    }
+
+    // Seleziona Piano Base
+    function selezionaPiano(el, piano, prezzo) {
+        document.querySelectorAll('.card-piano').forEach(c => {
+            c.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            c.classList.add('border-white/10');
+        });
+        el.classList.remove('border-white/10');
+        el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+
+        nomePiano = piano;
+        prezzoBase = Number(prezzo) || 0;
+
+        alCambioPiano();
+        aggiornaStatoExtra();
+        aggiornaRiepilogo();
+    }
+
+    // Toggle Extra Selezionato
+    function toggleExtra(el, nomeExtra, prezzoExtra) {
+        if (el.classList.contains('pointer-events-none')) return;
+
+        if (extraAttivi[nomeExtra]) {
+            delete extraAttivi[nomeExtra];
+            el.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            el.classList.add('border-white/10');
+        } else {
+            extraAttivi[nomeExtra] = Number(prezzoExtra) || 0;
+            el.classList.remove('border-white/10');
+            el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+        }
+        aggiornaRiepilogo();
+    }
+
+    // Aggiorna visibilità Extra inclusi nel piano
+    function aggiornaStatoExtra() {
+        const inclusi = extraInclusiPerPiano[nomePiano] || [];
+
+        for (let [nomeExtra, idCard] of Object.entries(mappaExtra)) {
+            const el = document.getElementById(idCard);
+            if (!el) continue;
+
+            const badge = el.querySelector('.badge-prezzo');
+
+            if (inclusi.includes(nomeExtra)) {
+                delete extraAttivi[nomeExtra];
+                el.classList.add('opacity-40', 'pointer-events-none', 'border-white/5');
+                el.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10', 'hover:border-neonCyan');
+                if (badge) badge.innerText = "Incluso";
+            } else {
+                el.classList.remove('opacity-40', 'pointer-events-none', 'border-white/5');
+                el.classList.add('hover:border-neonCyan');
+                if (badge && !extraAttivi[nomeExtra]) {
+                    badge.innerText = prezziExtraOriginali[idCard] || '';
+                }
+            }
+        }
+    }
+
+    // Applicazione Codice Sconto
+    function applicaSconto(e) {
+        if (e) e.preventDefault();
+        
+        const input = document.getElementById('input-sconto');
+        const msg = document.getElementById('msg-sconto');
+        if (!input || !msg) return;
+
+        const codiceInserito = input.value.trim().toUpperCase();
+
+        if (codiciScontoValidi.includes(codiceInserito)) {
+            scontoApplicato = true;
+            msg.className = "text-xs mt-2 text-green-400 block";
+            msg.innerText = `Sconto del ${percentualeSconto}% applicato con successo!`;
+        } else {
+            scontoApplicato = false;
+            msg.className = "text-xs mt-2 text-red-400 block";
+            msg.innerText = "Codice sconto non valido.";
+        }
+
+        aggiornaRiepilogo();
+    }
+
+    // Calcolo Totale e Aggiornamento Grafico
+    function aggiornaRiepilogo() {
+        let totaleExtra = 0;
+        let listaExtraText = [];
+
+        for (let [nome, prezzo] of Object.entries(extraAttivi)) {
+            totaleExtra += Number(prezzo) || 0;
+            listaExtraText.push(nome + ' (+' + prezzo + '€)');
+        }
+
+        let totaleLordo = (Number(prezzoBase) || 0) + totaleExtra;
+        let totaleFinale = totaleLordo;
+
+        if (scontoApplicato) {
+            totaleFinale = totaleLordo * (1 - (percentualeSconto / 100));
+        }
+
+        totaleFinale = Math.round(totaleFinale);
+
+        // Aggiorna testi riepilogo superiore
+        const elPiano = document.getElementById('summary-piano');
+        const elStile = document.getElementById('summary-stile');
+        const elAmbiente = document.getElementById('summary-ambiente');
+        const elExtra = document.getElementById('summary-extra');
+
+        if (elPiano) elPiano.innerText = nomePiano + ' (' + prezzoBase + '€)';
+        if (elStile) elStile.innerText = nomeStile;
+        if (elAmbiente) {
+            elAmbiente.innerText = ambientiSelezionati.length > 0 
+                ? ambientiSelezionati.join(', ') 
+                : 'Nessuno';
+        }   
+        if (elExtra) elExtra.innerText = listaExtraText.length > 0 ? listaExtraText.join(', ') : 'Nessuno';
+
+        // Aggiorna TUTTI gli elementi del totale presenti nella pagina
+        const elementiTotale = [
+            document.getElementById('totale-prezzo'),
+            document.getElementById('totale-prezzo-box')
+        ];
+
+        elementiTotale.forEach(el => {
+            if (el) el.innerText = totaleFinale + '€';
+        });
+
+        // AGGIORNA IL LINK PAYPAL CON L'IMPORTO CALCOLATO
+        const btnPaypal = document.getElementById('btn-paypal');
+        if (btnPaypal) {
+            btnPaypal.href = `https://paypal.me/ZeloPlays/${totaleFinale}EUR`;
+        }
+
+        // Gestione Prezzo Barrato
+        const elOriginale = document.getElementById('prezzo-originale');
+        const elWrapper = document.getElementById('prezzo-scontato-wrapper');
+
+        if (scontoApplicato) {
+            if (elOriginale) elOriginale.innerText = totaleLordo + '€';
+            if (elWrapper) elWrapper.classList.remove('hidden');
+        } else {
+            if (elWrapper) elWrapper.classList.add('hidden');
+        }
+    }
+
+    // Inizializzazione
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputTitolo = document.getElementById('titolo-mappa');
+        const charCount = document.getElementById('char-count');
+        if (inputTitolo && charCount) {
+            inputTitolo.addEventListener('input', (e) => {
+                charCount.innerText = e.target.value.length;
+            });
+        }
+
+        aggiornaContatoreAmbienti();
+        aggiornaStatoExtra();
+        aggiornaRiepilogo();
+    });
+</script>
+</body>
+</html>
