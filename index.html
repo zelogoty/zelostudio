@@ -159,11 +159,58 @@
             <!-- BARRA DI NAVIGAZIONE PRINCIPALE -->
             <div class="flex-grow h-full px-6 flex items-center justify-between bg-gradient-to-r from-darkBg via-darkBg/95 to-darkBg">
                 
-                <!-- LOGO ZELO STUDIO -->
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-neonCyan flex items-center justify-center font-black text-black shadow-[0_0_15px_rgba(0,242,254,0.4)]">
-                        <i class="fa-solid fa-bolt"></i>
+                <!-- BRANDING & TASTO UTENTE IN ALTO A SINISTRA (PUNTO 1) -->
+                <div class="flex items-center gap-3 relative">
+                    <!-- TASTO PROFILO (Al posto del vecchio logo fisso) -->
+                    <div class="relative">
+                        <button id="btn-profile-dropdown" class="w-9 h-9 rounded-lg bg-neonCyan/10 border border-neonCyan/40 text-neonCyan flex items-center justify-center font-bold hover:bg-neonCyan hover:text-black transition-all cursor-pointer shadow-[0_0_10px_rgba(0,242,254,0.3)]">
+                            <i id="profile-icon" class="fa-solid fa-user"></i>
+                            <span id="profile-initial" class="hidden font-black text-sm uppercase">Z</span>
+                        </button>
+
+                        <!-- MENU A TENDINA PROFILO ACCOUNT -->
+<div id="profile-dropdown-menu" class="hidden absolute left-0 mt-3 w-64 glass-panel rounded-2xl border border-neonCyan/30 shadow-2xl p-4 z-50">
+    <!-- Info Account Corrente -->
+<div class="border-b border-white/10 pb-3 mb-3">
+    <div id="account-type-label">
+        <span class="text-[10px] font-mono uppercase text-gray-400 block">Account attivo</span>
+    </div>
+    <span id="dropdown-user-email" class="text-xs font-bold text-white truncate block">Nessun utente</span>
+</div>
+
+    <!-- Sezione Piani Acquistati -->
+    <div class="mb-3 border-b border-white/10 pb-3">
+        <span class="text-[10px] font-mono uppercase text-neonCyan block mb-1"><i class="fa-solid fa-box-open mr-1"></i> Piani acquistati</span>
+        <div id="user-plans-list" class="text-xs text-gray-300 space-y-1 max-h-24 overflow-y-auto">
+            <span class="text-gray-500 italic block text-[11px]">Nessun piano attivo</span>
+        </div>
+    </div>
+
+    <!-- Lista Account Registrati (Switch Rapido) -->
+    <div id="saved-accounts-section" class="mb-3 border-b border-white/10 pb-3 hidden">
+        <span class="text-[10px] font-mono uppercase text-gray-400 block mb-1">Cambia Account</span>
+        <div id="saved-accounts-list" class="space-y-1 max-h-20 overflow-y-auto"></div>
+    </div>
+
+    <!-- Pulsanti Azione (I 3 tasti richiesti) -->
+    <div class="space-y-1.5 pt-1">
+        <button id="menu-btn-add-account" class="w-full text-left px-3 py-2 text-xs font-semibold text-gray-200 hover:text-neonCyan hover:bg-white/5 rounded-lg transition-all flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-user-plus text-neonCyan"></i> Aggiungi un altro account
+        </button>
+        <button id="menu-btn-switch-account" class="w-full text-left px-3 py-2 text-xs font-semibold text-gray-200 hover:text-neonCyan hover:bg-white/5 rounded-lg transition-all flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-users text-neonCyan"></i> Cambia account
+        </button>
+        <button id="menu-btn-logout" class="w-full text-left px-3 py-2 text-xs font-semibold text-red-400 hover:bg-red-500/10 rounded-lg transition-all flex items-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-right-from-bracket"></i> Disconnetti (Logout)
+            
+        </button>
+        <button id="menu-btn-delete-account" class="w-full text-left px-3 py-2 text-xs font-semibold text-red-500 hover:bg-red-500/20 rounded-lg transition-all flex items-center gap-2 cursor-pointer mt-1 border-t border-white/10 pt-2">
+            <i class="fa-solid fa-trash-can"></i> Elimina account
+        </button>
+    </div>
+</div>
                     </div>
+
                     <span class="font-heading font-black text-xl text-white tracking-wider">ZELO STUDIO</span>
                 </div>
 
@@ -174,11 +221,15 @@
                     <a href="#processo" class="hover:text-neonCyan transition-colors">Processo</a>
                     <a href="#stats" class="hover:text-neonCyan transition-colors">Risultati</a>
                     <a href="#faq" class="hover:text-neonCyan transition-colors">FAQ</a>
+                    <!-- Da inserire nella nav dell'header accanto a FAQ -->
+                    <a href="#" id="header-tickets-link" class="hidden text-xs font-bold uppercase tracking-wider text-neonCyan hover:text-white transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-shield-halved"></i> Tickets
+                    </a>
                 </nav>
 
                 <!-- AREA UTENTE E DISCORD -->
                 <div class="flex items-center gap-4">
-                    <!-- Pulsante Account / Apri Modale Autenticazione -->
+                    <!-- Pulsante Accedi / Registrati -->
                     <button id="open-auth-modal" class="border border-neonCyan/50 bg-neonCyan/10 text-neonCyan font-bold px-4 py-2 rounded-lg hover:bg-neonCyan hover:text-black transition-all flex items-center gap-2 text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(0,242,254,0.15)] cursor-pointer">
                         <i class="fa-solid fa-user"></i> <span id="user-display-state">Accedi / Registrati</span>
                     </button>
@@ -189,7 +240,42 @@
                 </div>
             </div>
         </header>
+<!-- MODALE ELIMINAZIONE ACCOUNT -->
+<div id="delete-account-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div class="glass-panel w-full max-w-md rounded-2xl border border-red-500/40 p-6 space-y-4 shadow-2xl relative">
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 bg-red-500/10 border border-red-500/30 rounded-full flex items-center justify-center mx-auto text-red-500 text-xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="font-heading font-extrabold text-white text-lg uppercase tracking-wider">Elimina Definitivamente</h3>
+            <p class="text-xs text-gray-400">Questa azione è irreversibile. Tutti i tuoi dati e i piani associati andranno persi per sempre.</p>
+        </div>
 
+        <div class="space-y-3">
+            <div>
+                <label class="block text-xs font-mono text-gray-300 uppercase mb-1">Conferma Email</label>
+                <input type="email" id="delete-email" placeholder="Inserisci la tua email" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-red-500 focus:outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs font-mono text-gray-300 uppercase mb-1">Conferma Password</label>
+                <input type="password" id="delete-password" placeholder="Inserisci la tua password" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-red-500 focus:outline-none transition-colors">
+            </div>
+            <div class="flex items-center gap-2 pt-2">
+                <input type="checkbox" id="delete-confirm-check" class="rounded border-white/10 bg-darkBg text-red-500 focus:ring-red-500 cursor-pointer">
+                <label for="delete-confirm-check" class="text-xs text-gray-300 select-none cursor-pointer">Confermo di voler eliminare l'account</label>
+            </div>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+            <button id="cancel-delete-btn" class="w-1/2 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-heading font-bold text-xs uppercase tracking-wider transition-all cursor-pointer">
+                Annulla
+            </button>
+            <button id="confirm-delete-btn" class="w-1/2 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-heading font-extrabold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                Elimina
+            </button>
+        </div>
+    </div>
+</div>
         <!-- MODALE DI AUTENTICAZIONE (LOGIN & SIGN UP) -->
         <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
             <div class="glass-panel w-full max-w-lg p-8 rounded-2xl neon-border relative mx-4">
@@ -213,30 +299,54 @@
                     <button id="tab-login" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-neonCyan border-b-2 border-neonCyan transition-all cursor-pointer">Accedi</button>
                     <button id="tab-signup" class="flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all cursor-pointer">Registrati</button>
                 </div>
-
+<!-- Box Avviso Verifica Email (inizialmente nascosto) -->
+<div id="verify-email-notice" class="hidden bg-darkBg border border-neonCyan/40 rounded-2xl p-6 text-center space-y-4 mb-4">
+    <div class="w-12 h-12 bg-neonCyan/10 border border-neonCyan/30 rounded-full flex items-center justify-center mx-auto text-neonCyan text-xl">
+        <i class="fa-solid fa-envelope-circle-check"></i>
+    </div>
+    <h3 class="font-heading font-extrabold text-white text-base uppercase tracking-wider">Controlla la tua email</h3>
+    <p class="text-xs text-gray-300 leading-relaxed">
+        Ti abbiamo inviato un link di verifica all'indirizzo <span id="verify-email-display" class="text-neonCyan font-bold"></span>. Clicca sul link nell'email per completare la creazione del tuo account.
+    </p>
+    <button id="close-verify-notice-btn" class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-heading font-bold text-xs uppercase tracking-wider transition-all cursor-pointer">
+        Ho capito, chiudi
+    </button>
+</div>
                 <!-- Form di Accesso / Registrazione -->
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-mono text-gray-300 uppercase mb-1">Indirizzo Email</label>
-                        <input type="email" id="auth-email" placeholder="nome@dominio.com" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-neonCyan focus:outline-none transition-colors">
+    <div>
+        <label class="block text-xs font-mono text-gray-300 uppercase mb-1">Indirizzo Email</label>
+        <input type="email" id="auth-email" placeholder="nome@dominio.com" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-neonCyan focus:outline-none transition-colors">
+    </div>
+    
+    <!-- CAMPO PASSWORD CON OCCHIO -->
+            <div>
+                <label class="block text-xs font-mono text-gray-300 uppercase mb-1">Password</label>
+                    <div class="relative">
+                        <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-darkBg border border-white/10 rounded-xl pl-4 pr-10 py-3 text-sm text-white focus:border-neonCyan focus:outline-none transition-colors">
+                            <button type="button" id="toggle-password-visibility" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-neonCyan transition-colors cursor-pointer">
+                            <i class="fa-solid fa-eye" id="eye-icon"></i>
+                        </button>
                     </div>
-                    <div>
-                        <label class="block text-xs font-mono text-gray-300 uppercase mb-1">Password</label>
-                        <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-darkBg border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-neonCyan focus:outline-none transition-colors">
-                    </div>
+                </div>
+                    
 
                     <!-- Pulsante Azione Dinamico (Login / Registrazione) -->
                     <button id="auth-submit-btn" class="w-full py-3.5 rounded-xl bg-neonCyan text-darkBg font-heading font-extrabold text-sm uppercase tracking-wider hover:bg-white hover:shadow-[0_0_25px_rgba(0,242,254,0.8)] transition-all mt-2 cursor-pointer">
-                        Accedi
+                            Accedi
+                        </button>
+    
+                        <!-- Pulsante Logout (Visibile solo se loggato) -->
+                        <button id="auth-logout-btn" class="w-full py-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-heading font-bold text-xs uppercase tracking-wider hover:bg-red-500 hover:text-white transition-all hidden cursor-pointer">
+                    Esci dall'Account (Logout)
                     </button>
                     
-                    <!-- Pulsante Logout (Visibile solo se loggato) -->
-                    <button id="auth-logout-btn" class="w-full py-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-heading font-bold text-xs uppercase tracking-wider hover:bg-red-500 hover:text-white transition-all hidden cursor-pointer">
-                        Esci dall'Account (Logout)
-                    </button>
-                </div>
+                </div>  
+                
             </div>
+            
         </div>
+        
 
         <!-- Hero Section -->
         <section id="hero" class="relative min-h-[90vh] px-4 sm:px-8 lg:px-12 py-12 flex flex-col justify-center overflow-hidden">
@@ -428,7 +538,7 @@
                 <!-- Progetto 2 -->
                 <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-1">
                     <div class="relative aspect-video overflow-hidden">
-                        <iframe class="w-full h-full" src="immagini/HO SFIDATO GLI STREAMER IN 1V1 MA....mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <img src="immagini/copertinaportfolio2.jpg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="p-5">
                         <span class="text-[10px] font-mono uppercase bg-neonPurple/20 text-neonPurple px-2 py-0.5 rounded border border-neonPurple/30">YouTube Video</span>
@@ -440,7 +550,7 @@
                 <!-- Progetto 3 -->
                 <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-2">
                     <div class="relative aspect-video overflow-hidden bg-black">
-                        <iframe class="w-full h-full" src="immagini/video 4.mp4" title="TikTok video player" frameborder="0" allowfullscreen></iframe>
+                        <img src="immagini/copertinashortportfolio.png" title="TikTok video player" frameborder="0" allowfullscreen></iframe>
                     </div>
                     <div class="p-5">
                         <span class="text-[10px] font-mono uppercase bg-neonBlue/20 text-neonBlue px-2 py-0.5 rounded border border-neonBlue/30">TikTok / Reel</span>
@@ -464,10 +574,7 @@
                 <!-- Progetto 5 -->
                 <div class="glass-panel rounded-xl overflow-hidden border border-white/10 hover:border-neonCyan/50 transition-all duration-300 group reveal delay-1">
                     <div class="relative aspect-video overflow-hidden bg-black">
-                        <video class="w-full h-full object-cover" controls preload="metadata">
-                            <source src="immagini/E' SEMPRE PIU' VICINO RTU.mp4" type="video/mp4">
-                            Il tuo browser non supporta il riproduttore video.
-                        </video>
+                        <img src="immagini/ab1unrealportfolio.jpg" alt="Progetto Video 1" class="w-full h-full object-cover">
                     </div>
                     <div class="p-5">
                         <span class="text-[10px] font-mono uppercase bg-neonPurple/20 text-neonPurple px-2 py-0.5 rounded border border-neonPurple/30">Video Storytelling</span>
@@ -900,9 +1007,9 @@
                         </div>
 
                         <!-- BOTTONE PAYPAL DINAMICO -->
-                        <a id="btn-paypal" href="https://paypal.me/ZeloPlays/60EUR" target="_blank" class="w-full inline-flex items-center justify-center px-10 py-4 mt-4 rounded-xl bg-gradient-to-r from-neonCyan via-neonBlue to-white text-darkBg font-heading font-black text-base uppercase tracking-wider hover:shadow-[0_0_30px_rgba(0,242,254,0.9)] transition-all transform hover:-translate-y-1">
-                            PAGA CON PAYPAL <i class="fa-brands fa-paypal ml-3 text-xl"></i>
-                        </a>
+                        <button id="open-ticket-section-btn" class="w-full py-3.5 rounded-xl bg-neonCyan text-darkBg font-heading font-extrabold text-sm uppercase tracking-wider hover:bg-white transition-all cursor-pointer">
+                        Invia la tua richiesta
+                    </button>
                     </div>
                 </div>
             </div>
@@ -914,7 +1021,7 @@
                 <div class="w-6 h-6 rounded bg-neonCyan flex items-center justify-center text-darkBg font-black text-xs">
                     <i class="fa-solid fa-bolt"></i>
                 </div>
-                <span class="font-heading font-bold text-gray-300 tracking-wider">ZELO STUDIO</span>
+                <span class="font-heading font-bold text-gray-300 tracking-wider">AURA STUDIOS</span>
                 <span>© 2026 Tutti i diritti riservati.</span>
             </div>
             
@@ -1226,59 +1333,424 @@
     <!-- SCRIPT FIREBASE AUTH & MODALE LOGIN/SIGNUP -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+    import { getAuth, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, signOut, onAuthStateChanged, EmailAuthProvider, reauthenticateWithCredential, deleteUser } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDFJ4mWLj7MVvq0_vxP_9Vy6KhGZFR2bUQ",
-            authDomain: "aura-studios-aura67.firebaseapp.com",
-            projectId: "aura-studios-aura67",
-            storageBucket: "aura-studios-aura67.firebasestorage.app",
-            messagingSenderId: "78141604751",
-            appId: "1:78141604751:web:ba4d933f1819cc75dec1fa",
-            measurementId: "G-G7VNFYVC5D"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyDFJ4mWLj7MVvq0_vxP_9Vy6KhGZFR2bUQ",
+        authDomain: "aura-studios-aura67.firebaseapp.com",
+        projectId: "aura-studios-aura67",
+        storageBucket: "aura-studios-aura67.firebasestorage.app",
+        messagingSenderId: "78141604751",
+        appId: "1:78141604751:web:ba4d933f1819cc75dec1fa",
+        measurementId: "G-G7VNFYVC5D"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-        // Elementi DOM Modale
-        const modal = document.getElementById('auth-modal');
-        const openBtn = document.getElementById('open-auth-modal');
-        const closeBtn = document.getElementById('close-auth-modal');
-        const tabLogin = document.getElementById('tab-login');
-        const tabSignup = document.getElementById('tab-signup');
-        const modalTitle = document.getElementById('auth-modal-title');
-        const submitBtn = document.getElementById('auth-submit-btn');
-        const logoutBtn = document.getElementById('auth-logout-btn');
-        const userDisplayState = document.getElementById('user-display-state');
+    setPersistence(auth, browserLocalPersistence).catch((error) => {
+        console.error("Errore persistenza auth:", error.message);
+    });
 
-        let isLoginMode = true;
+    const MODERATOR_EMAILS = [
+        "zelogoty@proton.me",
+        "altroadmin@dominio.com"
+    ];
 
-        // Apertura / Chiusura Modale
-        openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
-        closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+    const extraInclusiPerPiano = {
+        'Mappa Light': [],
+        'Mappa Basic': ['Ottimizzazione FPS', 'Playtime'],
+        'Mappa Perfect': ['Ottimizzazione FPS', 'Playtime', 'bot 1v1', 'Ruota della fortuna'],
+        'Mappa Ultimate': ['Ottimizzazione FPS', 'Asset Personalizzati', 'Playtime', 'bot 1v1', 'Supporto Prioritario', 'Ruota della fortuna']
+    };
 
-        // Cambio Tab Accedi <-> Registrati
-        tabLogin.addEventListener('click', () => {
-            isLoginMode = true;
+    const limitiTemiPerPiano = {
+        'Mappa Light': 2,
+        'Mappa Basic': 3,
+        'Mappa Perfect': 4,
+        'Mappa Ultimate': 6
+    };
+
+    const mappaExtra = {
+        'Asset Personalizzati': 'extra-asset',
+        'Ottimizzazione FPS': 'extra-ottimizzazione',
+        'Playtime': 'extra-playtime',
+        'Ruota della fortuna': 'extra-ruota',
+        'bot 1v1': 'extra-bot',
+        'Aggiornamenti Gratuiti': 'extra-aggiornamenti',
+        'Consegna Express': 'extra-consegna',
+        'Video cinematico': 'extra-social'
+    };
+
+    const prezziExtraOriginali = {
+        'extra-asset': '+15€',
+        'extra-ottimizzazione': '+15€',
+        'extra-playtime': '+10€',
+        'extra-ruota': '+13€',
+        'extra-bot': '+15€',
+        'extra-aggiornamenti': '+20€',
+        'extra-consegna': '+10€',
+        'extra-social': '+5€'
+    };
+
+    const codiciScontoValidi = ['WSPEED', 'GABRIELE', 'ZELITA'];
+    const percentualeSconto = 20;
+
+    let prezzoBase = 60;
+    let nomePiano = 'Mappa Ultimate';
+    let nomeStile = 'BLUEMAP';
+    let ambientiSelezionati = [];
+    let extraAttivi = {};
+    let scontoApplicato = false;
+
+    const modal = document.getElementById('auth-modal');
+    const openBtn = document.getElementById('open-auth-modal');
+    const closeBtn = document.getElementById('close-auth-modal');
+    const tabLogin = document.getElementById('tab-login');
+    const tabSignup = document.getElementById('tab-signup');
+    const modalTitle = document.getElementById('auth-modal-title');
+    const submitBtn = document.getElementById('auth-submit-btn');
+
+    const togglePasswordBtn = document.getElementById('toggle-password-visibility');
+    const passwordInput = document.getElementById('auth-password');
+    const eyeIcon = document.getElementById('eye-icon');
+
+    const profileDropdownBtn = document.getElementById('btn-profile-dropdown');
+    const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
+    const profileIcon = document.getElementById('profile-icon');
+    const profileInitial = document.getElementById('profile-initial');
+    const dropdownUserEmail = document.getElementById('dropdown-user-email');
+    const userPlansList = document.getElementById('user-plans-list');
+    const savedAccountsSection = document.getElementById('saved-accounts-section');
+    const savedAccountsList = document.getElementById('saved-accounts-list');
+
+    const verifyEmailNotice = document.getElementById('verify-email-notice');
+    const verifyEmailDisplay = document.getElementById('verify-email-display');
+    const closeVerifyNoticeBtn = document.getElementById('close-verify-notice-btn');
+
+    const deleteModal = document.getElementById('delete-account-modal');
+    const menuBtnDeleteAccount = document.getElementById('menu-btn-delete-account');
+    const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+    const deleteEmailInput = document.getElementById('delete-email');
+    const deletePasswordInput = document.getElementById('delete-password');
+    const deleteConfirmCheck = document.getElementById('delete-confirm-check');
+
+    const headerTicketsLink = document.getElementById('header-tickets-link');
+    const ticketSection = document.getElementById('ticket-section'); 
+    const closeTicketSectionBtn = document.getElementById('close-ticket-section-btn');
+    const openTicketBtn = document.getElementById('open-ticket-section-btn'); 
+    const chatMessagesContainer = document.getElementById('chat-messages-container');
+    const chatReplyInput = document.getElementById('chat-reply-input');
+    const chatSendBtn = document.getElementById('chat-send-btn');
+    const ticketUserChatView = document.getElementById('ticket-user-chat-view');
+    const ticketListContainer = document.getElementById('ticket-list-container');
+
+    let currentActiveTicketId = null;
+
+    const menuBtnAddAccount = document.getElementById('menu-btn-add-account');
+    const menuBtnSwitchAccount = document.getElementById('menu-btn-switch-account');
+    const menuBtnLogout = document.getElementById('menu-btn-logout');
+
+    let isLoginMode = true;
+
+    function getLimiteMassimoTemi() {
+        return limitiTemiPerPiano[nomePiano] || 2;
+    }
+
+    window.apriConfiguratore = function() {
+        const sec = document.getElementById('configuratore-mappa');
+        if (sec) {
+            sec.classList.remove('hidden');
+            sec.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    window.selezionaStile = function(el, stile) {
+        document.querySelectorAll('.card-stile').forEach(c => {
+            c.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            c.classList.add('border-white/10');
+        });
+        el.classList.remove('border-white/10');
+        el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+        nomeStile = stile;
+        aggiornaRiepilogo();
+    }
+
+    window.selezionaAmbiente = function(el, ambiente) {
+        const msgErrore = document.getElementById('messaggio-errore-ambiente');
+        const limiteMax = getLimiteMassimoTemi();
+
+        if (msgErrore) {
+            msgErrore.classList.add('hidden');
+            msgErrore.innerText = '';
+        }
+
+        const index = ambientiSelezionati.indexOf(ambiente);
+
+        if (index > -1) {
+            ambientiSelezionati.splice(index, 1);
+            el.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            el.classList.add('border-white/10');
+        } else {
+            if (ambientiSelezionati.length < limiteMax) {
+                ambientiSelezionati.push(ambiente);
+                el.classList.remove('border-white/10');
+                el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            } else {
+                if (msgErrore) {
+                    msgErrore.innerText = `Puoi selezionare al massimo ${limiteMax} temi ambientali con il piano ${nomePiano}!`;
+                    msgErrore.classList.remove('hidden');
+                }
+            }
+        }
+        aggiornaContatoreAmbienti();
+        aggiornaRiepilogo();
+    }
+
+    function aggiornaContatoreAmbienti() {
+        const elCount = document.getElementById('num-ambienti-count');
+        const elMax = document.getElementById('max-ambienti-count');
+        const quanti = ambientiSelezionati.length;
+        const limiteMax = getLimiteMassimoTemi();
+
+        if (elMax) elMax.innerText = limiteMax;
+        if (elCount) {
+            elCount.innerText = quanti;
+            if (quanti >= limiteMax) {
+                elCount.className = 'text-red-500 font-bold';
+            } else {
+                elCount.className = 'text-neonCyan';
+            }
+        }
+    }
+
+    function alCambioPiano() {
+        const limiteMax = getLimiteMassimoTemi();
+        if (ambientiSelezionati.length > limiteMax) {
+            const rimossi = ambientiSelezionati.slice(limiteMax);
+            ambientiSelezionati = ambientiSelezionati.slice(0, limiteMax);
+
+            document.querySelectorAll('.card-ambiente').forEach(card => {
+                const attrAmbiente = card.getAttribute('onclick');
+                if (attrAmbiente && rimossi.some(r => attrAmbiente.includes(r))) {
+                    card.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+                    card.classList.add('border-white/10');
+                }
+            });
+        }
+        const msgErrore = document.getElementById('messaggio-errore-ambiente');
+        if (msgErrore) {
+            msgErrore.classList.add('hidden');
+            msgErrore.innerText = '';
+        }
+        aggiornaContatoreAmbienti();
+    }
+
+    window.selezionaPiano = function(el, piano, prezzo) {
+        document.querySelectorAll('.card-piano').forEach(c => {
+            c.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            c.classList.add('border-white/10');
+        });
+        el.classList.remove('border-white/10');
+        el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+
+        nomePiano = piano;
+        prezzoBase = Number(prezzo) || 0;
+
+        alCambioPiano();
+        aggiornaStatoExtra();
+        aggiornaRiepilogo();
+    }
+
+    window.toggleExtra = function(el, nomeExtra, prezzoExtra) {
+        if (el.classList.contains('pointer-events-none')) return;
+
+        if (extraAttivi[nomeExtra]) {
+            delete extraAttivi[nomeExtra];
+            el.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+            el.classList.add('border-white/10');
+        } else {
+            extraAttivi[nomeExtra] = Number(prezzoExtra) || 0;
+            el.classList.remove('border-white/10');
+            el.classList.add('border-2', 'border-neonCyan', 'bg-neonCyan/10');
+        }
+        aggiornaRiepilogo();
+    }
+
+    function aggiornaStatoExtra() {
+        const inclusi = extraInclusiPerPiano[nomePiano] || [];
+
+        for (let [nomeExtra, idCard] of Object.entries(mappaExtra)) {
+            const el = document.getElementById(idCard);
+            if (!el) continue;
+
+            const badge = el.querySelector('.badge-prezzo');
+
+            if (inclusi.includes(nomeExtra)) {
+                delete extraAttivi[nomeExtra];
+                el.classList.add('opacity-40', 'pointer-events-none', 'border-white/5');
+                el.classList.remove('border-2', 'border-neonCyan', 'bg-neonCyan/10', 'hover:border-neonCyan');
+                if (badge) badge.innerText = "Incluso";
+            } else {
+                el.classList.remove('opacity-40', 'pointer-events-none', 'border-white/5');
+                el.classList.add('hover:border-neonCyan');
+                if (badge && !extraAttivi[nomeExtra]) {
+                    badge.innerText = prezziExtraOriginali[idCard] || '';
+                }
+            }
+        }
+    }
+
+    window.applicaSconto = function(e) {
+        if (e) e.preventDefault();
+        const input = document.getElementById('input-sconto');
+        const msg = document.getElementById('msg-sconto');
+        if (!input || !msg) return;
+
+        const codiceInserito = input.value.trim().toUpperCase();
+
+        if (codiciScontoValidi.includes(codiceInserito)) {
+            scontoApplicato = true;
+            msg.className = "text-xs mt-2 text-green-400 block";
+            msg.innerText = `Sconto del ${percentualeSconto}% applicato con successo!`;
+        } else {
+            scontoApplicato = false;
+            msg.className = "text-xs mt-2 text-red-400 block";
+            msg.innerText = "Codice sconto non valido.";
+        }
+        aggiornaRiepilogo();
+    }
+
+    function calcolaPrezzoTotaleCorrente() {
+        let totaleExtra = 0;
+        for (let [, prezzo] of Object.entries(extraAttivi)) {
+            totaleExtra += Number(prezzo) || 0;
+        }
+        let totaleLordo = (Number(prezzoBase) || 0) + totaleExtra;
+        let totaleFinale = totaleLordo;
+        if (scontoApplicato) {
+            totaleFinale = totaleLordo * (1 - (percentualeSconto / 100));
+        }
+        return Math.round(totaleFinale);
+    }
+
+    function aggiornaRiepilogo() {
+        let totaleExtra = 0;
+        let listaExtraText = [];
+
+        for (let [nome, prezzo] of Object.entries(extraAttivi)) {
+            totaleExtra += Number(prezzo) || 0;
+            listaExtraText.push(nome + ' (+' + prezzo + '€)');
+        }
+
+        let totaleLordo = (Number(prezzoBase) || 0) + totaleExtra;
+        let totaleFinale = totaleLordo;
+
+        if (scontoApplicato) {
+            totaleFinale = totaleLordo * (1 - (percentualeSconto / 100));
+        }
+
+        totaleFinale = Math.round(totaleFinale);
+
+        const elPiano = document.getElementById('summary-piano');
+        const elStile = document.getElementById('summary-stile');
+        const elAmbiente = document.getElementById('summary-ambiente');
+        const elExtra = document.getElementById('summary-extra');
+
+        if (elPiano) elPiano.innerText = nomePiano + ' (' + prezzoBase + '€)';
+        if (elStile) elStile.innerText = nomeStile;
+        if (elAmbiente) {
+            elAmbiente.innerText = ambientiSelezionati.length > 0 
+                ? ambientiSelezionati.join(', ') 
+                : 'Nessuno';
+        }   
+        if (elExtra) elExtra.innerText = listaExtraText.length > 0 ? listaExtraText.join(', ') : 'Nessuno';
+
+        const elementiTotale = [
+            document.getElementById('totale-prezzo'),
+            document.getElementById('totale-prezzo-box')
+        ];
+
+        elementiTotale.forEach(el => {
+            if (el) el.innerText = totaleFinale + '€';
+        });
+
+        const btnPaypal = document.getElementById('btn-paypal');
+        if (btnPaypal) {
+            btnPaypal.href = `https://paypal.me/ZeloPlays/${totaleFinale}EUR`;
+        }
+
+        const elOriginale = document.getElementById('prezzo-originale');
+        const elWrapper = document.getElementById('prezzo-scontato-wrapper');
+
+        if (scontoApplicato) {
+            if (elOriginale) elOriginale.innerText = totaleLordo + '€';
+            if (elWrapper) elWrapper.classList.remove('hidden');
+        } else {
+            if (elWrapper) elWrapper.classList.add('hidden');
+        }
+    }
+
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.className = isPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+        });
+    }
+
+    profileDropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileDropdownMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!profileDropdownMenu.contains(e.target) && !profileDropdownBtn.contains(e.target)) {
+            profileDropdownMenu.classList.add('hidden');
+        }
+    });
+
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            if (verifyEmailNotice) verifyEmailNotice.classList.add('hidden');
+            modal.classList.remove('hidden');
+        });
+    }
+    
+    if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+
+    if (closeVerifyNoticeBtn) {
+        closeVerifyNoticeBtn.addEventListener('click', () => {
+            verifyEmailNotice.classList.add('hidden');
+            modal.classList.add('hidden');
+        });
+    }
+
+    if (tabLogin) tabLogin.addEventListener('click', () => setAuthMode(true));
+    if (tabSignup) tabSignup.addEventListener('click', () => setAuthMode(false));
+
+    function setAuthMode(isLogin) {
+        isLoginMode = isLogin;
+        if (verifyEmailNotice) verifyEmailNotice.classList.add('hidden');
+        
+        if (isLogin) {
             tabLogin.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-neonCyan border-b-2 border-neonCyan transition-all cursor-pointer";
             tabSignup.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all cursor-pointer";
             modalTitle.textContent = "Accedi a Zelo Studio";
             submitBtn.textContent = "Accedi";
-        });
-
-        tabSignup.addEventListener('click', () => {
-            isLoginMode = false;
+        } else {
             tabSignup.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-neonCyan border-b-2 border-neonCyan transition-all cursor-pointer";
             tabLogin.className = "flex-1 pb-3 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-all cursor-pointer";
             modalTitle.textContent = "Crea un Account";
             submitBtn.textContent = "Registrati";
-        });
+        }
+    }
 
-        // Gestione Click Pulsante Invio (Login o Registrazione)
+    if (submitBtn) {
         submitBtn.addEventListener('click', () => {
             const email = document.getElementById('auth-email').value;
-            const password = document.getElementById('auth-password').value;
+            const password = passwordInput.value;
 
             if(!email || !password) {
                 alert("Per favore, compila tutti i campi!");
@@ -1287,43 +1759,557 @@
 
             if (isLoginMode) {
                 signInWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        alert("Accesso effettuato con successo!");
+                    .then(() => {
+                        salvaAccountLocale(email);
                         modal.classList.add('hidden');
                     })
-                    .catch((error) => {
-                        alert("Errore durante l'accesso: " + error.message);
-                    });
+                    .catch((error) => alert("Errore di accesso: " + error.message));
             } else {
                 createUserWithEmailAndPassword(auth, email, password)
                     .then((userCredential) => {
-                        alert("Registrazione completata con successo per: " + userCredential.user.email);
-                        modal.classList.add('hidden');
+                        const user = userCredential.user;
+                        sendEmailVerification(user)
+                            .then(() => {
+                                salvaAccountLocale(user.email);
+                                if (verifyEmailDisplay) verifyEmailDisplay.textContent = email;
+                                if (verifyEmailNotice) verifyEmailNotice.classList.remove('hidden');
+                            })
+                            .catch((error) => alert("Errore nell'invio dell'email: " + error.message));
                     })
-                    .catch((error) => {
-                        alert("Errore durante la registrazione: " + error.message);
-                    });
+                    .catch((error) => alert("Errore di registrazione: " + error.message));
             }
         });
+    }
 
-        // Gestione Logout
-        logoutBtn.addEventListener('click', () => {
+    if (menuBtnAddAccount) {
+        menuBtnAddAccount.addEventListener('click', () => {
+            profileDropdownMenu.classList.add('hidden');
+            setAuthMode(false);
+            modal.classList.remove('hidden');
+        });
+    }
+
+    if (menuBtnSwitchAccount) {
+        menuBtnSwitchAccount.addEventListener('click', () => {
+            profileDropdownMenu.classList.add('hidden');
+            setAuthMode(true);
+            modal.classList.remove('hidden');
+        });
+    }
+
+    if (menuBtnLogout) {
+        menuBtnLogout.addEventListener('click', () => {
             signOut(auth).then(() => {
-                alert("Disconnessione effettuata.");
+                profileDropdownMenu.classList.add('hidden');
             });
         });
+    }
 
-        // Monitoraggio dello stato dell'utente (Sessione attiva)
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // Mostra il nome utente (parte prima della chiocciola) nel pulsante in alto
-                userDisplayState.textContent = user.email.split('@')[0];
-                logoutBtn.classList.remove('hidden');
+    if (menuBtnDeleteAccount) {
+        menuBtnDeleteAccount.addEventListener('click', () => {
+            profileDropdownMenu.classList.add('hidden');
+            if (deleteEmailInput) deleteEmailInput.value = '';
+            if (deletePasswordInput) deletePasswordInput.value = '';
+            if (deleteConfirmCheck) deleteConfirmCheck.checked = false;
+            if (deleteModal) deleteModal.classList.remove('hidden');
+        });
+    }
+
+    if (cancelDeleteBtn) {
+        cancelDeleteBtn.addEventListener('click', () => deleteModal.classList.add('hidden'));
+    }
+
+    if (confirmDeleteBtn) {
+        confirmDeleteBtn.addEventListener('click', () => {
+            const emailVal = deleteEmailInput.value.trim();
+            const passVal = deletePasswordInput.value;
+            const isChecked = deleteConfirmCheck.checked;
+            const currentUser = auth.currentUser;
+
+            if (!currentUser) return alert("Nessun utente collegato.");
+            if (!emailVal || !passVal) return alert("Inserisci email e password.");
+            if (emailVal !== currentUser.email) return alert("L'email non corrisponde.");
+            if (!isChecked) return alert("Conferma l'eliminazione.");
+
+            const credential = EmailAuthProvider.credential(emailVal, passVal);
+            reauthenticateWithCredential(currentUser, credential)
+                .then(() => {
+                    rimuoviAccountLocale(currentUser.email);
+                    deleteUser(currentUser).then(() => {
+                        alert("Account eliminato con successo.");
+                        deleteModal.classList.add('hidden');
+                    }).catch((error) => alert("Errore: " + error.message));
+                })
+                .catch((error) => alert("Autenticazione fallita: " + error.message));
+        });
+    }
+
+    function mostraSezioneTickets() {
+        const user = auth.currentUser;
+        if (!user) {
+            alert("Devi effettuare l'accesso per visualizzare i tuoi ticket!");
+            modal.classList.remove('hidden');
+            return;
+        }
+
+        if (ticketSection) {
+            ticketSection.classList.remove('hidden');
+            ticketSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        caricaListaTicketAccessibili();
+    }
+
+    if (headerTicketsLink) {
+        headerTicketsLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            mostraSezioneTickets();
+        });
+    }
+
+    if (closeTicketSectionBtn) {
+        closeTicketSectionBtn.addEventListener('click', () => {
+            if (ticketSection) ticketSection.classList.add('hidden');
+        });
+    }
+
+    if (openTicketBtn) {
+        openTicketBtn.addEventListener('click', () => {
+            const user = auth.currentUser;
+            if (!user) {
+                alert("Devi effettuare l'accesso per aprire una richiesta!");
+                modal.classList.remove('hidden');
+                return;
+            }
+
+            caricaOCreaTicketUtente(user.email);
+            mostraSezioneTickets();
+        });
+    }
+
+    // INCLUSIONE DEL TITOLO, NOTE E PREZZO NEL MESSAGGIO DI APERTURA DEL TICKET
+    function caricaOCreaTicketUtente(userEmail) {
+        let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
+        let userTicket = tickets.find(t => t.email === userEmail && t.piano === nomePiano);
+
+        if (!userTicket) {
+            const cieliStr = ambientiSelezionati.length > 0 ? ambientiSelezionati.join(', ') : 'Nessun cielo selezionato';
+            
+            let listaExtraText = [];
+            for (let [nome] of Object.entries(extraAttivi)) {
+                listaExtraText.push(nome);
+            }
+            const inclusiNelPiano = extraInclusiPerPiano[nomePiano] || [];
+            const extraTotali = [...inclusiNelPiano, ...listaExtraText];
+            const extraStr = extraTotali.length > 0 ? extraTotali.join(', ') : 'Nessun extra';
+            
+            const prezzoTotaleCalcolato = calcolaPrezzoTotaleCorrente();
+
+            // Lettura dei campi di input "Titolo della mappa" e "Note e dettagli personalizzati"
+            const inputTitoloMappa = document.getElementById('titolo-mappa');
+            const inputNoteDettagli = document.getElementById('note-dettagli') || document.getElementById('dettagli-mappa') || document.querySelector('textarea'); 
+            
+            const titoloMappaVal = inputTitoloMappa && inputTitoloMappa.value.trim() !== '' ? inputTitoloMappa.value.trim() : 'Senza titolo';
+            const noteDettagliVal = inputNoteDettagli && inputNoteDettagli.value.trim() !== '' ? inputNoteDettagli.value.trim() : 'Nessun dettaglio aggiuntivo';
+
+            const riepilogoConfigurazione = `Richiesta configurazione mappa:\n` +
+                `- Titolo della mappa: ${titoloMappaVal}\n` +
+                `- Piano: ${nomePiano}\n` +
+                `- Colore principale: ${nomeStile}\n` +
+                `- Temi ambientali (Cieli): ${cieliStr}\n` +
+                `- Extra: ${extraStr}\n` +
+                `- Note e dettagli: ${noteDettagliVal}\n` +
+                `- Prezzo stimato/totale: ${prezzoTotaleCalcolato}€`;
+
+            userTicket = {
+                id: Date.now(),
+                email: userEmail,
+                piano: nomePiano,
+                chiusuraRichiestaDa: null,
+                messaggi: [
+                    { 
+                        mittente: userEmail, 
+                        testo: riepilogoConfigurazione, 
+                        data: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+                    }
+                ]
+            };
+            tickets.push(userTicket);
+            localStorage.setItem('zelo_support_tickets', JSON.stringify(tickets));
+        }
+
+        currentActiveTicketId = userTicket.id;
+    }
+
+    function caricaListaTicketAccessibili() {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const isModerator = MODERATOR_EMAILS.includes(user.email);
+        let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
+
+        const ticketsVisibili = isModerator 
+            ? tickets 
+            : tickets.filter(t => t.email === user.email);
+
+        if (ticketListContainer) {
+            ticketListContainer.innerHTML = '';
+
+            if (ticketsVisibili.length === 0) {
+                ticketListContainer.innerHTML = `<p class="text-xs text-gray-400 italic">Nessun ticket attivo trovato.</p>`;
+                if (ticketUserChatView) ticketUserChatView.classList.add('hidden');
+                return;
+            }
+
+            ticketsVisibili.forEach(ticket => {
+                const ultimoMsg = ticket.messaggi[ticket.messaggi.length - 1];
+                const div = document.createElement('div');
+                div.className = "bg-darkBg border border-white/10 rounded-xl p-3 space-y-2 text-xs cursor-pointer hover:border-neonCyan transition-all";
+                
+                let testoBottoneChiusura = "Chiudi";
+                if (ticket.chiusuraRichiestaDa) {
+                    if (ticket.chiusuraRichiestaDa === user.email) {
+                        testoBottoneChiusura = "In attesa di risposta";
+                    } else {
+                        testoBottoneChiusura = "Accetta Chiusura";
+                    }
+                }
+
+                div.innerHTML = `
+                    <div class="flex justify-between text-gray-400 font-mono text-[10px]">
+                        <span class="text-neonCyan font-bold"><i class="fa-solid fa-user mr-1"></i> ${ticket.email}</span>
+                        <span>[${ticket.piano}]</span>
+                    </div>
+                    <p class="text-white truncate font-medium">Ultimo: ${ultimoMsg ? ultimoMsg.testo : ''}</p>
+                    <div class="flex justify-between items-center pt-1">
+                        <span class="text-[10px] text-neonCyan underline">Apri Chat</span>
+                        <button class="chiudi-ticket-btn text-red-400 hover:text-red-300 font-bold text-[10px] cursor-pointer" data-id="${ticket.id}">
+                            <i class="fa-solid fa-check mr-1"></i> ${testoBottoneChiusura}
+                        </button>
+                    </div>
+                `;
+
+                div.addEventListener('click', (e) => {
+                    if (e.target.closest('.chiudi-ticket-btn')) return;
+                    apriConversazioneTicket(ticket.id);
+                });
+
+                div.querySelector('.chiudi-ticket-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idTicket = Number(e.target.getAttribute('data-id') || e.target.closest('button').getAttribute('data-id'));
+                    gestisciRichiestaChiusura(idTicket, user.email);
+                });
+
+                ticketListContainer.appendChild(div);
+            });
+
+            if (!currentActiveTicketId && ticketsVisibili.length > 0) {
+                currentActiveTicketId = ticketsVisibili.length > 0 ? ticketsVisibili[0].id : null;
+            }
+            if (currentActiveTicketId) {
+                apriConversazioneTicket(currentActiveTicketId);
+            }
+        }
+    }
+
+    function gestisciRichiestaChiusura(ticketId, userEmail) {
+        let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
+        let ticket = tickets.find(t => t.id === ticketId);
+        if (!ticket) return;
+
+        if (!ticket.chiusuraRichiestaDa) {
+            ticket.chiusuraRichiestaDa = userEmail;
+            ticket.messaggi.push({
+                mittente: "Sistema",
+                testo: `L'utente ${userEmail} ha richiesto la chiusura della conversazione.\nSi attende la conferma dell'altra parte per procedere con l'eliminazione del ticket.`,
+                data: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            });
+        } else if (ticket.chiusuraRichiestaDa === userEmail) {
+            ticket.messaggi.push({
+                mittente: "Sistema",
+                testo: `Attendi che l'altro utente confermi la chiusura del ticket per eliminarlo definitivamente.`,
+                data: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            });
+        } else {
+            tickets = tickets.filter(t => t.id !== ticketId);
+            localStorage.setItem('zelo_support_tickets', JSON.stringify(tickets));
+            
+            if (currentActiveTicketId === ticketId) {
+                currentActiveTicketId = null;
+                if (ticketUserChatView) ticketUserChatView.classList.add('hidden');
+            }
+            caricaListaTicketAccessibili();
+            return;
+        }
+
+        localStorage.setItem('zelo_support_tickets', JSON.stringify(tickets));
+        caricaListaTicketAccessibili();
+        if (currentActiveTicketId === ticketId) {
+            apriConversazioneTicket(ticketId);
+        }
+    }
+
+    window.accettaChiusuraDaChat = function(ticketId) {
+        const user = auth.currentUser;
+        if (user) {
+            gestisciRichiestaChiusura(ticketId, user.email);
+        }
+    }
+
+    function apriConversazioneTicket(ticketId) {
+        currentActiveTicketId = ticketId;
+        let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
+        let ticket = tickets.find(t => t.id === ticketId);
+
+        if (ticket && ticketUserChatView) {
+            ticketUserChatView.classList.remove('hidden');
+            mostraMessaggiChat(ticket);
+        }
+    }
+
+    function formattaLinkTesto(testo) {
+        const exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+        return testo.replace(exp, '<a href="$1" target="_blank" class="text-red-500 font-bold underline hover:text-red-400 break-all">$1</a>');
+    }
+
+    function mostraMessaggiChat(ticket) {
+        if (!chatMessagesContainer) return;
+        chatMessagesContainer.innerHTML = '';
+
+        const user = auth.currentUser;
+
+        ticket.messaggi.forEach(msg => {
+            const isSystem = msg.mittente === "Sistema";
+            const div = document.createElement('div');
+
+            if (isSystem) {
+                div.className = "text-center text-[11px] text-yellow-300 font-mono p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl my-2 space-y-2";
+                
+                const deveAccettare = ticket.chiusuraRichiestaDa && ticket.chiusuraRichiestaDa !== user.email;
+
+                div.innerHTML = `
+                    <p class="whitespace-pre-line">${msg.testo}</p>
+                    ${deveAccettare ? `
+                        <button onclick="accettaChiusuraDaChat(${ticket.id})" class="mt-2 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg text-xs transition-colors cursor-pointer inline-flex items-center gap-1">
+                            <i class="fa-solid fa-check"></i> Accetta Chiusura Ticket
+                        </button>
+                    ` : ''}
+                `;
             } else {
-                userDisplayState.textContent = "Accedi / Registrati";
-                logoutBtn.classList.add('hidden');
+                const isMe = msg.mittente === user.email;
+                div.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'}`;
+                const testoFormattato = formattaLinkTesto(msg.testo);
+
+                div.innerHTML = `
+                    <div class="max-w-[85%] rounded-xl p-3 text-xs whitespace-pre-line ${isMe ? 'bg-neonCyan text-darkBg font-medium' : 'bg-white/10 text-white'}">
+                        <span class="text-[9px] font-mono opacity-70 block mb-1">${msg.mittente} • ${msg.data}</span>
+                        <p>${testoFormattato}</p>
+                    </div>
+                `;
+            }
+            chatMessagesContainer.appendChild(div);
+        });
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+    }
+
+    if (chatSendBtn) {
+        chatSendBtn.addEventListener('click', () => inviaMessaggioChat());
+    }
+    if (chatReplyInput) {
+        chatReplyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') inviaMessaggioChat();
+        });
+    }
+
+    function inviaMessaggioChat() {
+        const testo = chatReplyInput.value.trim();
+        const user = auth.currentUser;
+        if (!testo || !currentActiveTicketId) return;
+
+        let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
+        let ticket = tickets.find(t => t.id === currentActiveTicketId);
+
+        if (ticket) {
+            ticket.messaggi.push({
+                mittente: user.email,
+                testo: testo,
+                data: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            });
+            localStorage.setItem('zelo_support_tickets', JSON.stringify(tickets));
+            chatReplyInput.value = '';
+            mostraMessaggiChat(ticket);
+            caricaListaTicketAccessibili();
+        }
+    }
+
+    function salvaAccountLocale(email) {
+        let accounts = JSON.parse(localStorage.getItem('zelo_saved_accounts') || '[]');
+        if (!accounts.includes(email)) {
+            accounts.push(email);
+            localStorage.setItem('zelo_saved_accounts', JSON.stringify(accounts));
+        }
+    }
+
+    function rimuoviAccountLocale(email) {
+        let accounts = JSON.parse(localStorage.getItem('zelo_saved_accounts') || '[]');
+        accounts = accounts.filter(acc => acc !== email);
+        localStorage.setItem('zelo_saved_accounts', JSON.stringify(accounts));
+    }
+
+    function caricaAccountSalvati() {
+        let accounts = JSON.parse(localStorage.getItem('zelo_saved_accounts') || '[]');
+        savedAccountsList.innerHTML = '';
+
+        if (accounts.length > 0) {
+            savedAccountsSection.classList.remove('hidden');
+            accounts.forEach(acc => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left px-2 py-1.5 text-[11px] text-gray-300 hover:text-neonCyan hover:bg-white/5 rounded truncate cursor-pointer transition-colors";
+                btn.innerHTML = `<i class="fa-solid fa-user-circle mr-1 text-neonCyan"></i> ${acc}`;
+                btn.addEventListener('click', () => {
+                    document.getElementById('auth-email').value = acc;
+                    profileDropdownMenu.classList.add('hidden');
+                    setAuthMode(true);
+                    modal.classList.remove('hidden');
+                });
+                savedAccountsList.appendChild(btn);
+            });
+        } else {
+            savedAccountsSection.classList.add('hidden');
+        }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            openBtn.classList.add('hidden');
+
+            profileIcon.classList.add('hidden');
+            profileInitial.classList.remove('hidden');
+            profileInitial.textContent = user.email.charAt(0).toUpperCase();
+
+            dropdownUserEmail.textContent = user.email;
+
+            const accountTypeContainer = document.getElementById('account-type-label');
+            const isAdmin = MODERATOR_EMAILS.includes(user.email);
+
+            if (accountTypeContainer) {
+                if (isAdmin) {
+                    accountTypeContainer.innerHTML = `<span class="text-[10px] font-mono uppercase text-red-400 font-bold block"><i class="fa-solid fa-shield-halved mr-1"></i> Account Amministratore</span>`;
+                } else {
+                    accountTypeContainer.innerHTML = `<span class="text-[10px] font-mono uppercase text-gray-400 block">Account attivo</span>`;
+                }
+            }
+
+            if (headerTicketsLink) {
+                headerTicketsLink.classList.remove('hidden');
+            }
+
+            userPlansList.innerHTML = `
+                <div id="plan-chat-trigger" class="p-2 rounded bg-neonCyan/10 border border-neonCyan/30 text-[11px] text-neonCyan font-bold flex justify-between items-center cursor-pointer hover:bg-neonCyan/20 transition-all">
+                    <span><i class="fa-solid fa-box-open mr-1"></i> ${nomePiano}</span>
+                    <span class="underline text-[10px]">Apri Sezione Ticket</span>
+                </div>
+            `;
+
+            document.getElementById('plan-chat-trigger').addEventListener('click', () => {
+                profileDropdownMenu.classList.add('hidden');
+                mostraSezioneTickets();
+            });
+
+            salvaAccountLocale(user.email);
+        } else {
+            openBtn.classList.remove('hidden');
+            profileIcon.classList.remove('hidden');
+            profileInitial.classList.add('hidden');
+
+            if (headerTicketsLink) headerTicketsLink.classList.add('hidden');
+            if (ticketSection) ticketSection.classList.add('hidden');
+
+            dropdownUserEmail.textContent = "Nessun utente attivo";
+            userPlansList.innerHTML = `<span class="text-gray-500 italic block text-[11px]">Accedi per vedere i piani</span>`;
+        }
+        caricaAccountSalvati();
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
             }
         });
+    }, { threshold: 0.1 });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputTitolo = document.getElementById('titolo-mappa');
+        const charCount = document.getElementById('char-count');
+        if (inputTitolo && charCount) {
+            inputTitolo.addEventListener('input', (e) => {
+                charCount.innerText = e.target.value.length;
+            });
+        }
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        aggiornaContatoreAmbienti();
+        aggiornaStatoExtra();
+        aggiornaRiepilogo();
+    });
     </script>
+<!-- SEZIONE DEDICATA AI TICKETS (Sostituisce il vecchio box in basso) -->
+<section id="ticket-section" class="hidden py-16 px-4 max-w-6xl mx-auto">
+    <div class="glass-panel rounded-2xl border border-neonCyan/40 p-6 md:p-8 space-y-6 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-white/10 pb-4">
+            <div>
+                <h2 class="font-heading font-extrabold text-white text-xl uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-headset text-neonCyan"></i> Gestione Ticket & Supporto
+                </h2>
+                <p class="text-xs text-gray-400 mt-1">Visualizza le tue richieste o gestisci le conversazioni attive.</p>
+            </div>
+            <button id="close-ticket-section-btn" class="text-gray-400 hover:text-white text-lg cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Layout a due colonne: Lista Ticket a sinistra, Chat attiva a destra -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Colonna Sinistra: Lista dei Ticket (Tutti per i mod, solo propri per i clienti) -->
+            <div class="space-y-3">
+                <h3 class="text-xs font-mono uppercase tracking-wider text-neonCyan font-bold">Le tue conversazioni</h3>
+                <div id="ticket-list-container" class="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+                    <!-- I ticket inseriti dinamicamente appariranno qui -->
+                </div>
+            </div>
+
+            <!-- Colonna Destra: Chat / Dettaglio Conversazione -->
+            <div id="ticket-user-chat-view" class="hidden md:col-span-2 flex flex-col space-y-3 bg-darkBg/60 border border-white/10 rounded-xl p-4">
+                <div class="border-b border-white/10 pb-2">
+                    <span class="text-xs font-mono text-neonCyan uppercase font-bold"><i class="fa-solid fa-comments mr-1"></i> Area Messaggi</span>
+                </div>
+                
+                <!-- Contenitore dei messaggi con altezza fissa e scroll interno (Punto 1) -->
+                <div id="chat-messages-container" class="flex-1 bg-darkBg/80 border border-white/10 rounded-xl p-3 space-y-3 overflow-y-auto h-80 max-h-80 text-xs">
+                    <!-- Messaggi caricati qui -->
+                </div>
+
+                <!-- Input invio risposta -->
+                <div class="flex gap-2 pt-2">
+                    <input type="text" id="chat-reply-input" placeholder="Scrivi una risposta al supporto..." class="flex-1 bg-darkBg border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:border-neonCyan focus:outline-none transition-colors">
+                    <button id="chat-send-btn" class="px-5 py-2.5 rounded-xl bg-neonCyan text-darkBg font-heading font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-all cursor-pointer">
+                        Invia
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vista Moderatore (se l'utente è admin) -->
+    <div id="ticket-moderator-view" class="space-y-3 hidden border-t border-neonCyan/30 pt-3 overflow-y-auto max-h-60">
+        <div class="bg-neonCyan/10 border border-neonCyan/30 rounded-lg p-2 flex justify-between items-center text-xs">
+            <span class="font-mono font-bold text-neonCyan uppercase"><i class="fa-solid fa-shield-halved mr-1"></i> Admin Panel</span>
+        </div>
+        <div id="moderator-tickets-list" class="space-y-2"></div>
+    </div>
+</div>
+</section>
 </body>
 </html>
