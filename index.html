@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://www.paypal.com/sdk/js?client-id=IL_TUO_CLIENT_ID&currency=EUR"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -1364,6 +1365,20 @@
         "altroadmin@dominio.com"
     ];
 
+    const WORKER_EMAILS = [
+        "gabryx.uefn@gmail.com"
+    ];
+
+    const BUILDERS_CONFIG = [
+        { id: "builder_1", nome: "Zelo", email: "zelogoty@proton.me" },
+        { id: "builder_2", nome: "Gabryx", email: "gabryx.uefn@gmail.com" }
+    ];
+
+    // Configurazione EmailJS completa con i tuoi dati
+    const EMAILJS_PUBLIC_KEY = "qMh6-I4FlyAqIYy6l";
+    const EMAILJS_SERVICE_ID = "service_ml6k1gf";
+    const EMAILJS_TEMPLATE_ID = "template_j0nwqjl";
+
     const extraInclusiPerPiano = {
         'Mappa Light': [],
         'Mappa Basic': ['Ottimizzazione FPS', 'Playtime'],
@@ -1894,7 +1909,6 @@
         });
     }
 
-    // INCLUSIONE DEL TITOLO, NOTE E PREZZO NEL MESSAGGIO DI APERTURA DEL TICKET
     function caricaOCreaTicketUtente(userEmail) {
         let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
         let userTicket = tickets.find(t => t.email === userEmail && t.piano === nomePiano);
@@ -1912,7 +1926,6 @@
             
             const prezzoTotaleCalcolato = calcolaPrezzoTotaleCorrente();
 
-            // Lettura dei campi di input "Titolo della mappa" e "Note e dettagli personalizzati"
             const inputTitoloMappa = document.getElementById('titolo-mappa');
             const inputNoteDettagli = document.getElementById('note-dettagli') || document.getElementById('dettagli-mappa') || document.querySelector('textarea'); 
             
@@ -1928,16 +1941,26 @@
                 `- Note e dettagli: ${noteDettagliVal}\n` +
                 `- Prezzo stimato/totale: ${prezzoTotaleCalcolato}€`;
 
+            const oraAttuale = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
             userTicket = {
                 id: Date.now(),
                 email: userEmail,
                 piano: nomePiano,
+                assegnatoA: null,
+                assegnatoNome: null,
                 chiusuraRichiestaDa: null,
                 messaggi: [
                     { 
                         mittente: userEmail, 
                         testo: riepilogoConfigurazione, 
-                        data: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+                        data: oraAttuale
+                    },
+                    {
+                        mittente: "Sistema",
+                        tipo: "selezione_builder",
+                        testo: "Da chi vorresti farti realizzare la mappa? Seleziona una casella qui sotto e premi Invia:",
+                        data: oraAttuale
                     }
                 ]
             };
@@ -1948,22 +1971,78 @@
         currentActiveTicketId = userTicket.id;
     }
 
+    function inviaNotificaEmailBuilder(builderEmail, builderNome, clienteEmail, pianoScelto) {
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                to_email: builderEmail,
+                to_name: builderNome,
+                client_email: clienteEmail,
+                map_plan: pianoScelto,
+                message: `Ciao ${builderNome}, l'utente ${clienteEmail} ti ha selezionato nel ticket per realizzare la sua mappa (${pianoScelto}). Accedi al sito per scrivere nel ticket!`
+            }).then(() => {
+                console.log("Email di notifica inviata con successo a " + builderEmail);
+            }).catch((err) => {
+                console.error("Errore invio email:", err);
+            });
+        }
+    }
+
+    window.confermaSceltaBuilder = function(ticketId) {
+        const selectedRadio = document.querySelector(`input[name="builder_choice_${ticketId}"]:checked`);
+        if (!selectedRadio) {
+            alert("Seleziona prima una delle due caselle!");
+            return;
+        }
+
+        const builderSceltoId = selectedRadio.value;
+        const builderObj = BUILDERS_CONFIG.find(b => b.id === builderSceltoId);
+        if (!builderObj) return;
+
+        let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
+        let ticket = tickets.find(t => t.id === ticketId);
+        if (!ticket) return;
+
+        ticket.assegnatoA = builderObj.email;
+        ticket.assegnatoNome = builderObj.nome;
+
+        ticket.messaggi.push({
+            mittente: "Sistema",
+            testo: `Hai selezionato ${builderObj.nome} (${builderObj.email}). È stata inviata una notifica email per avvisarlo di scrivere nel ticket!`,
+            data: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        });
+
+        localStorage.setItem('zelo_support_tickets', JSON.stringify(tickets));
+
+        inviaNotificaEmailBuilder(builderObj.email, builderObj.nome, ticket.email, ticket.piano);
+
+        mostraMessaggiChat(ticket);
+        caricaListaTicketAccessibili();
+    }
+
     function caricaListaTicketAccessibili() {
         const user = auth.currentUser;
         if (!user) return;
 
         const isModerator = MODERATOR_EMAILS.includes(user.email);
+        const isWorker = WORKER_EMAILS.includes(user.email);
         let tickets = JSON.parse(localStorage.getItem('zelo_support_tickets') || '[]');
 
-        const ticketsVisibili = isModerator 
-            ? tickets 
-            : tickets.filter(t => t.email === user.email);
+        let ticketsVisibili = [];
+
+        if (isModerator) {
+            ticketsVisibili = tickets;
+        } else if (isWorker) {
+            ticketsVisibili = tickets.filter(t => t.assegnatoA === user.email);
+        } else {
+            ticketsVisibili = tickets.filter(t => t.email === user.email);
+        }
 
         if (ticketListContainer) {
             ticketListContainer.innerHTML = '';
 
             if (ticketsVisibili.length === 0) {
-                ticketListContainer.innerHTML = `<p class="text-xs text-gray-400 italic">Nessun ticket attivo trovato.</p>`;
+                ticketListContainer.innerHTML = `<p class="text-xs text-gray-400 italic">Nessun ticket attivo disponibile per il tuo ruolo.</p>`;
                 if (ticketUserChatView) ticketUserChatView.classList.add('hidden');
                 return;
             }
@@ -1982,11 +2061,16 @@
                     }
                 }
 
+                const badgeAssegnazione = ticket.assegnatoNome 
+                    ? `<span class="text-[9px] bg-neonCyan/20 text-neonCyan px-1.5 py-0.5 rounded font-mono">Builder: ${ticket.assegnatoNome}</span>` 
+                    : `<span class="text-[9px] bg-yellow-500/20 text-yellow-300 px-1.5 py-0.5 rounded font-mono">Da assegnare</span>`;
+
                 div.innerHTML = `
                     <div class="flex justify-between text-gray-400 font-mono text-[10px]">
                         <span class="text-neonCyan font-bold"><i class="fa-solid fa-user mr-1"></i> ${ticket.email}</span>
                         <span>[${ticket.piano}]</span>
                     </div>
+                    <div>${badgeAssegnazione}</div>
                     <p class="text-white truncate font-medium">Ultimo: ${ultimoMsg ? ultimoMsg.testo : ''}</p>
                     <div class="flex justify-between items-center pt-1">
                         <span class="text-[10px] text-neonCyan underline">Apri Chat</span>
@@ -2010,7 +2094,7 @@
                 ticketListContainer.appendChild(div);
             });
 
-            if (!currentActiveTicketId && ticketsVisibili.length > 0) {
+            if (!currentActiveTicketId || !ticketsVisibili.some(t => t.id === currentActiveTicketId)) {
                 currentActiveTicketId = ticketsVisibili.length > 0 ? ticketsVisibili[0].id : null;
             }
             if (currentActiveTicketId) {
@@ -2090,18 +2174,48 @@
             const div = document.createElement('div');
 
             if (isSystem) {
-                div.className = "text-center text-[11px] text-yellow-300 font-mono p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl my-2 space-y-2";
-                
-                const deveAccettare = ticket.chiusuraRichiestaDa && ticket.chiusuraRichiestaDa !== user.email;
+                if (msg.tipo === "selezione_builder") {
+                    div.className = "bg-neonCyan/10 border border-neonCyan/30 rounded-xl p-4 my-2 text-xs text-white space-y-3";
+                    
+                    const giaAssegnato = Boolean(ticket.assegnatoA);
 
-                div.innerHTML = `
-                    <p class="whitespace-pre-line">${msg.testo}</p>
-                    ${deveAccettare ? `
-                        <button onclick="accettaChiusuraDaChat(${ticket.id})" class="mt-2 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg text-xs transition-colors cursor-pointer inline-flex items-center gap-1">
-                            <i class="fa-solid fa-check"></i> Accetta Chiusura Ticket
-                        </button>
-                    ` : ''}
-                `;
+                    let caselleHtml = `<div class="grid grid-cols-2 gap-3 pt-1">`;
+                    BUILDERS_CONFIG.forEach(b => {
+                        const isChecked = ticket.assegnatoA === b.email ? 'checked' : '';
+                        const isDisabled = giaAssegnato ? 'disabled' : '';
+                        caselleHtml += `
+                            <label class="flex flex-col items-center justify-center p-3 rounded-lg border ${ticket.assegnatoA === b.email ? 'border-neonCyan bg-neonCyan/20' : 'border-white/20 bg-darkBg'} cursor-pointer hover:border-neonCyan transition-all">
+                                <span class="font-bold text-neonCyan mb-2 text-sm">${b.nome}</span>
+                                <input type="radio" name="builder_choice_${ticket.id}" value="${b.id}" ${isChecked} ${isDisabled} class="w-4 h-4 accent-neonCyan cursor-pointer">
+                            </label>
+                        `;
+                    });
+                    caselleHtml += `</div>`;
+
+                    div.innerHTML = `
+                        <p class="font-medium text-gray-200">${msg.testo}</p>
+                        ${caselleHtml}
+                        ${!giaAssegnato ? `
+                            <div class="text-right pt-1">
+                                <button onclick="confermaSceltaBuilder(${ticket.id})" class="px-4 py-1.5 bg-neonCyan text-darkBg font-bold rounded-lg text-xs hover:opacity-90 transition-all cursor-pointer">
+                                    Invia Scelta
+                                </button>
+                            </div>
+                        ` : `<p class="text-[10px] text-green-400 font-mono"><i class="fa-solid fa-check-circle mr-1"></i> Scelta confermata: ${ticket.assegnatoNome}</p>`}
+                    `;
+                } else {
+                    div.className = "text-center text-[11px] text-yellow-300 font-mono p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl my-2 space-y-2";
+                    const deveAccettare = ticket.chiusuraRichiestaDa && ticket.chiusuraRichiestaDa !== user.email;
+
+                    div.innerHTML = `
+                        <p class="whitespace-pre-line">${msg.testo}</p>
+                        ${deveAccettare ? `
+                            <button onclick="accettaChiusuraDaChat(${ticket.id})" class="mt-2 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg text-xs transition-colors cursor-pointer inline-flex items-center gap-1">
+                                <i class="fa-solid fa-check"></i> Accetta Chiusura Ticket
+                            </button>
+                        ` : ''}
+                    `;
+                }
             } else {
                 const isMe = msg.mittente === user.email;
                 div.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'}`;
@@ -2198,10 +2312,13 @@
 
             const accountTypeContainer = document.getElementById('account-type-label');
             const isAdmin = MODERATOR_EMAILS.includes(user.email);
+            const isWorker = WORKER_EMAILS.includes(user.email);
 
             if (accountTypeContainer) {
                 if (isAdmin) {
                     accountTypeContainer.innerHTML = `<span class="text-[10px] font-mono uppercase text-red-400 font-bold block"><i class="fa-solid fa-shield-halved mr-1"></i> Account Amministratore</span>`;
+                } else if (isWorker) {
+                    accountTypeContainer.innerHTML = `<span class="text-[10px] font-mono uppercase text-yellow-400 font-bold block"><i class="fa-solid fa-hammer mr-1"></i> Account Lavoratore</span>`;
                 } else {
                     accountTypeContainer.innerHTML = `<span class="text-[10px] font-mono uppercase text-gray-400 block">Account attivo</span>`;
                 }
